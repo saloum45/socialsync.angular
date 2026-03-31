@@ -1,0 +1,132 @@
+<div class="modal-header" data-bs-theme="ligth">
+        <h1 class="modal-title fs-5">Modifier Users</h1>
+        <button type="button" class="btn-close" aria-label="Close" (click)="activeModal.close()"></button>
+    </div>
+    <div class="modal-body">
+      <form [formGroup]="reactiveForm_edit_users" (ngSubmit)="onSubmit_edit_users()" #form_edit_users="ngForm" class="row">
+        
+
+              <!-- Champ Prenom -->
+              <div class="form-group col-sm-12 mb-2">
+                <label  for="prenom">Prenom <span class="text-danger">*</span></label>
+                <input id="prenom" class="form-control" 
+                       type="text" 
+                       formControlName="prenom" 
+                       placeholder="Prenom"  
+                       [ngClass]="{ 'is-invalid': submitted() && f.prenom.errors }"/>
+                @if (submitted() && f.prenom.errors) {
+                  <div class="invalid-feedback">
+                    @if (f.prenom.errors.required) {
+                      <div>Ce champ est obligatoire</div>
+                    }
+                  </div>
+                }
+              </div>
+
+              <!-- Champ Nom -->
+              <div class="form-group col-sm-12 mb-2">
+                <label  for="nom">Nom <span class="text-danger">*</span></label>
+                <input id="nom" class="form-control" 
+                       type="text" 
+                       formControlName="nom" 
+                       placeholder="Nom"  
+                       [ngClass]="{ 'is-invalid': submitted() && f.nom.errors }"/>
+                @if (submitted() && f.nom.errors) {
+                  <div class="invalid-feedback">
+                    @if (f.nom.errors.required) {
+                      <div>Ce champ est obligatoire</div>
+                    }
+                  </div>
+                }
+              </div>
+
+              <!-- Champ Adresse -->
+              <div class="form-group col-sm-12 mb-2">
+                <label  for="adresse">Adresse <span class="text-danger">*</span></label>
+                <input id="adresse" class="form-control" 
+                       type="text" 
+                       formControlName="adresse" 
+                       placeholder="Adresse"  
+                       [ngClass]="{ 'is-invalid': submitted() && f.adresse.errors }"/>
+                @if (submitted() && f.adresse.errors) {
+                  <div class="invalid-feedback">
+                    @if (f.adresse.errors.required) {
+                      <div>Ce champ est obligatoire</div>
+                    }
+                  </div>
+                }
+              </div>
+
+              <!-- Champ Telephone -->
+              <div class="form-group col-sm-12 mb-2">
+                <label  for="telephone">Telephone <span class="text-danger">*</span></label>
+                <input id="telephone" class="form-control" 
+                       type="text" 
+                       formControlName="telephone" 
+                       placeholder="Telephone"  
+                       [ngClass]="{ 'is-invalid': submitted() && f.telephone.errors }"/>
+                @if (submitted() && f.telephone.errors) {
+                  <div class="invalid-feedback">
+                    @if (f.telephone.errors.required) {
+                      <div>Ce champ est obligatoire</div>
+                    }
+                  </div>
+                }
+              </div>
+
+              <!-- Champ Email -->
+              <div class="form-group col-sm-12 mb-2">
+                <label  for="email">Email <span class="text-danger">*</span></label>
+                <input id="email" class="form-control" 
+                       type="text" 
+                       formControlName="email" 
+                       placeholder="Email"  
+                       [ngClass]="{ 'is-invalid': submitted() && f.email.errors }"/>
+                @if (submitted() && f.email.errors) {
+                  <div class="invalid-feedback">
+                    @if (f.email.errors.required) {
+                      <div>Ce champ est obligatoire</div>
+                    }
+                  </div>
+                }
+              </div>
+
+              <!-- Champ Password -->
+              <div class="form-group col-sm-12 mb-2">
+                <label  for="password">Password <span class="text-danger">*</span></label>
+                <input id="password" class="form-control" 
+                       type="text" 
+                       formControlName="password" 
+                       placeholder="Password"  
+                       [ngClass]="{ 'is-invalid': submitted() && f.password.errors }"/>
+                @if (submitted() && f.password.errors) {
+                  <div class="invalid-feedback">
+                    @if (f.password.errors.required) {
+                      <div>Ce champ est obligatoire</div>
+                    }
+                  </div>
+                }
+              </div>
+      </form>
+    </div>
+    <!-- Footer -->
+<div class="modal-footer border-0 pt-0">
+  <button type="button" class="btn btn-outline-secondary px-4" (click)="activeModal.close()">
+    Annuler
+  </button>
+  <button type="button" class="btn btn-primary px-4" [disabled]="
+      loading_edit_users() ||
+      loading_get_details_edit_users_form() ||reactiveForm_edit_users.pristine
+    " (click)="form_edit_users.ngSubmit.emit()">
+    @if(loading_edit_users()){
+      <span>
+      <i class="bi bi-hourglass-split me-1"></i> Enregistrement...
+      </span>
+    }
+    @if(!loading_edit_users()){
+    <span>
+      <i class="bi bi-check-circle me-1"></i> Enregistrer
+    </span>
+  }
+  </button>
+</div>

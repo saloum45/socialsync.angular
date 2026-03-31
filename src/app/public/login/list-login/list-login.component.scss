@@ -1,0 +1,103 @@
+
+  .login-page {
+  background: url('https://chitari.falltech.site/banner.png') no-repeat center center;
+  background-size: cover;
+  position: relative;
+}
+
+.overlay {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.5); /* Overlay sombre */
+  top: 0;
+  left: 0;
+}
+
+.login-card {
+  position: relative;
+  z-index: 2;
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 20px;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  max-width: 400px;
+  width: 100%;
+}
+
+.form-floating > label {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  color: #fff !important;
+}
+
+.glass-input {
+  background: rgba(255,255,255,0.2);
+  color: #fff;
+  border: none;
+}
+
+.glass-input::placeholder {
+  color: transparent;
+}
+
+.btn-password {
+  position: absolute;
+  right: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #fff;
+  font-size: 1.2rem;
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, #233C6C, #093991);
+  border: none;
+  transition: 0.3s;
+}
+
+.btn-primary:hover {
+  background: linear-gradient(135deg, #093991, #233C6C);
+  transform: translateY(-2px);
+}
+
+.invalid-feedback {
+  color: #ffd6d6;
+}
+
+
+// effect zoom
+/* Animation zoom */
+.login-page.zooming {
+  animation: bgZoom 0.8s forwards;
+}
+
+.login-page.zooming .login-card {
+  animation: cardFadeOut 0.8s forwards;
+}
+
+@keyframes bgZoom {
+  0% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(1.6); /* zoom vers le background */
+  }
+}
+
+@keyframes cardFadeOut {
+  0% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(0.6); /* le form disparaît */
+  }
+}
+
+  

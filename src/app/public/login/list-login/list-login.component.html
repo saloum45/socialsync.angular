@@ -1,0 +1,61 @@
+
+  <div class="login-page d-flex align-items-center justify-content-center vh-100">
+  <div class="overlay"></div>
+
+  <div class="login-card p-4 rounded-4 shadow-lg">
+    <div class="text-center">
+      <img src="https://chitari.falltech.site/banner.png" alt="Logo" class="rounded-3" style="width: 140px;">
+      <h3 class="fw-bold text-white">Bienvenue</h3>
+      <p class="text-light small">Connectez-vous pour continuer</p>
+    </div>
+
+    <form [formGroup]="reactiveForm_login_login" (ngSubmit)="onSubmit_login_login()">
+      <!-- Email -->
+      <div class="form-floating mb-3 position-relative">
+        <input type="text" class="form-control glass-input rounded-pill ps-5" id="emailInput" placeholder="Email"
+          formControlName="email" [ngClass]="{ 'is-invalid': submitted && f.email.errors }">
+        <label [ngClass]="{ 'error-label': submitted && f.email.errors }" for="emailInput">
+          <i class="bi bi-envelope-fill me-2"></i>
+          @if (submitted && f.email.errors) {
+          Email requis
+          } @else {
+          Email
+          }
+        </label>
+      </div>
+
+      <!-- Password -->
+      <div class="form-floating mb-3 position-relative">
+        <input [type]="showPassword ? 'text' : 'password'" class="form-control glass-input rounded-pill ps-5"
+          id="passwordInput" placeholder="Mot de passe" formControlName="password"
+          [ngClass]="{ 'is-invalid': submitted && f.password.errors }">
+
+        <label [ngClass]="{ 'error-label': submitted && f.password.errors }" for="passwordInput">
+          <i class="bi bi-lock-fill me-2"></i>
+          @if (submitted && f.password.errors) {
+          Mot de passe requis
+          } @else {
+          Mot de passe
+          }
+        </label>
+
+        <button type="button" class="btn-password" (click)="togglePasswordVisibility()">
+          <i class="bi" [ngClass]="showPassword ? 'bi-eye-slash' : 'bi-eye'"></i>
+        </button>
+      </div>
+
+
+      <!-- Forgot password -->
+      <div class="text-end mb-3">
+        <a  type="button" class="text-decoration-none small text-light"
+          (click)="api.Swal_success('Pas disponible pour le moment, Bientôt 💻')">Mot de passe oublié ?</a>
+      </div>
+
+      <!-- Submit -->
+      <button type="submit" class="btn btn-primary w-100 rounded-pill py-2 fw-semibold">
+        {{ loading_login_login ? 'En cours...' : 'Connexion' }}
+      </button>
+    </form>
+  </div>
+</div>
+  

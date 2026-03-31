@@ -1,0 +1,77 @@
+<div class="modal-header" data-bs-theme="ligth">
+      <h1 class="modal-title fs-5">Ajouter  UserPrivileges</h1>
+      <button type="button" class="btn-close" aria-label="Close" (click)="activeModal.close()"></button>
+    </div>
+    <div class="modal-body">
+      <form [formGroup]="reactiveForm_add_user_privileges" 
+            (ngSubmit)="onSubmit_add_user_privileges()" 
+            #form_add_user_privileges="ngForm" 
+            class="row">
+        
+ <!-- Champ Id User (Clé étrangère vers users) -->
+            <div class="form-group col-sm-12 mb-2">
+              <label  for="id_user">Users <span class="text-danger">*</span></label>
+               <ng-select id="id_user" [ngClass]="{ 'is-invalid': submitted() && f.id_user.errors }"
+        formControlName="id_user" [items]="form_details?.users" bindLabel="prenom" bindValue="id" placeholder="Sélectionnez Users" virtualScroll="true">
+      </ng-select>
+              @if (submitted() && f.id_user.errors) {
+                <div class="invalid-feedback">
+                  @if (f.id_user.errors.required) {
+                    <div>Ce champ est obligatoire</div>
+                  }
+                </div>
+              }
+            </div>
+
+ <!-- Champ Id Privilege (Clé étrangère vers privileges) -->
+            <div class="form-group col-sm-12 mb-2">
+              <label  for="id_privilege">Privileges <span class="text-danger">*</span></label>
+               <ng-select id="id_privilege" [ngClass]="{ 'is-invalid': submitted() && f.id_privilege.errors }"
+        formControlName="id_privilege" [items]="form_details?.privileges" bindLabel="libelle" bindValue="id" placeholder="Sélectionnez Privileges" virtualScroll="true">
+      </ng-select>
+              @if (submitted() && f.id_privilege.errors) {
+                <div class="invalid-feedback">
+                  @if (f.id_privilege.errors.required) {
+                    <div>Ce champ est obligatoire</div>
+                  }
+                </div>
+              }
+            </div>
+
+ <!-- Champ Id Entreprise (Clé étrangère vers entreprises) -->
+            <div class="form-group col-sm-12 mb-2">
+              <label  for="id_entreprise">Entreprises <span class="text-danger">*</span></label>
+               <ng-select id="id_entreprise" [ngClass]="{ 'is-invalid': submitted() && f.id_entreprise.errors }"
+        formControlName="id_entreprise" [items]="form_details?.entreprises" bindLabel="nom" bindValue="id" placeholder="Sélectionnez Entreprises" virtualScroll="true">
+      </ng-select>
+              @if (submitted() && f.id_entreprise.errors) {
+                <div class="invalid-feedback">
+                  @if (f.id_entreprise.errors.required) {
+                    <div>Ce champ est obligatoire</div>
+                  }
+                </div>
+              }
+            </div>
+      </form>
+    </div>
+        <!-- Footer -->
+    <div class="modal-footer border-0 pt-0">
+  <button type="button" class="btn btn-outline-secondary px-4" (click)="activeModal.close()">
+    Annuler
+  </button>
+  <button type="button" class="btn btn-primary px-4" [disabled]="
+      loading_add_user_privileges() ||
+      loading_get_details_add_user_privileges_form()
+    " (click)="form_add_user_privileges.ngSubmit.emit()">
+    @if(loading_add_user_privileges()){
+      <span>
+      <i class="bi bi-hourglass-split me-1"></i> Enregistrement...
+      </span>
+    }
+    @if(!loading_add_user_privileges()){
+    <span>
+      <i class="bi bi-check-circle me-1"></i> Enregistrer
+    </span>
+  }
+  </button>
+</div>

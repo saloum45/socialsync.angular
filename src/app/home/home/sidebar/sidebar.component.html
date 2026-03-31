@@ -1,0 +1,32 @@
+<!-- sidebar.component.html -->
+<aside class="sidebar" [class.mobile-open]="isMobileMenuOpen">
+  <div class="sidebar-header">
+    <div class="logo-box">
+      <img src="https://chitari.falltech.site/banner.png" alt="Logo" />
+    </div>
+  </div>
+
+  <nav class="sidebar-nav">
+    @for (menu of api.full_menu[0].items; track menu.path) {
+    @if (menu.show_on_sidebar) {
+    <a [routerLink]="menu.path" routerLinkActive="active" class="nav-link" (click)="isMobileMenuOpen = false">
+      <i [class]="menu.icon"></i>
+      <span class="nav-text">{{ menu.text }}</span>
+    </a>
+    }
+    }
+  </nav>
+
+  <div class="sidebar-footer">
+    <div class="theme-toggle" (click)="toggleTheme()" [class.active]="isDarkMode">
+      <div class="toggle-thumb">
+        <i [class]="isDarkMode ? 'bi bi-sun-fill' : 'bi bi-moon-fill'"></i>
+      </div>
+    </div>
+  </div>
+</aside>
+
+@if (isMobileMenuOpen) {
+<div class="mobile-overlay" (click)="isMobileMenuOpen = false"></div>
+}
+

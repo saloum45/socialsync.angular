@@ -1,0 +1,532 @@
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:var(--font-sans);color:var(--color-text-primary);background:transparent}
+.dashboard{padding:1rem 0}
+.top-bar{display:flex;align-items:center;justify-content:space-between;margin-bottom:1.75rem;flex-wrap:wrap;gap:12px}
+.logo{display:flex;align-items:center;gap:10px}
+.logo-mark{width:32px;height:32px;border-radius:8px;background:#1a1a2e;display:flex;align-items:center;justify-content:center}
+.logo-mark svg{width:18px;height:18px}
+.logo-text{font-size:17px;font-weight:500;letter-spacing:-0.3px}
+.logo-text span{color:#6366f1}
+.top-actions{display:flex;gap:8px}
+.btn{display:inline-flex;align-items:center;gap:6px;padding:7px 14px;border-radius:var(--border-radius-md);font-size:13px;font-weight:500;cursor:pointer;border:0.5px solid var(--color-border-secondary);background:var(--color-background-primary);color:var(--color-text-primary);transition:background 0.15s}
+.btn:hover{background:var(--color-background-secondary)}
+.btn-primary{background:#6366f1;color:#fff;border-color:#6366f1}
+.btn-primary:hover{background:#4f46e5;border-color:#4f46e5}
+.btn svg{width:14px;height:14px}
+.tab-bar{display:flex;gap:4px;margin-bottom:1.5rem;border-bottom:0.5px solid var(--color-border-tertiary);padding-bottom:0}
+.tab{padding:8px 16px;font-size:13px;font-weight:500;cursor:pointer;border-bottom:2px solid transparent;color:var(--color-text-secondary);transition:all 0.15s;margin-bottom:-0.5px}
+.tab:hover{color:var(--color-text-primary)}
+.tab.active{color:#6366f1;border-bottom-color:#6366f1}
+.section-title{font-size:13px;font-weight:500;color:var(--color-text-secondary);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:1rem}
+.stats-row{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:1.75rem}
+.stat-card{background:var(--color-background-secondary);border-radius:var(--border-radius-md);padding:14px 16px}
+.stat-label{font-size:12px;color:var(--color-text-secondary);margin-bottom:6px}
+.stat-value{font-size:22px;font-weight:500}
+.stat-sub{font-size:11px;color:var(--color-text-tertiary);margin-top:3px}
+.stat-value.green{color:#1D9E75}
+.stat-value.amber{color:#BA7517}
+.networks-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:1.75rem}
+.net-card{background:var(--color-background-primary);border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-lg);padding:16px;position:relative;overflow:hidden;transition:border-color 0.15s}
+.net-card:hover{border-color:var(--color-border-secondary)}
+.net-card.connected{border-top:2px solid #1D9E75}
+.net-card.expiring{border-top:2px solid #BA7517}
+.net-card.disconnected{border-top:2px solid var(--color-border-tertiary)}
+.net-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
+.net-identity{display:flex;align-items:center;gap:10px}
+.net-icon{width:36px;height:36px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0}
+.net-icon.x{background:#000;color:#fff}
+.net-icon.fb{background:#1877F2;color:#fff}
+.net-icon.ig{background:linear-gradient(135deg,#833AB4,#C13584,#E1306C,#FD1D1D,#F56040,#F77737,#FCAF45,#FFDC80);color:#fff}
+.net-icon.li{background:#0A66C2;color:#fff}
+.net-icon.yt{background:#FF0000;color:#fff}
+.net-icon.tt{background:#010101;color:#fff}
+.net-name{font-size:14px;font-weight:500}
+.net-handle{font-size:12px;color:var(--color-text-secondary)}
+.status-badge{display:inline-flex;align-items:center;gap:5px;padding:3px 9px;border-radius:20px;font-size:11px;font-weight:500}
+.status-badge.connected{background:#EAF3DE;color:#3B6D11}
+.status-badge.expiring{background:#FAEEDA;color:#854F0B}
+.status-badge.disconnected{background:var(--color-background-secondary);color:var(--color-text-secondary)}
+.status-dot{width:6px;height:6px;border-radius:50%}
+.status-dot.connected{background:#639922}
+.status-dot.expiring{background:#EF9F27}
+.status-dot.disconnected{background:#888780}
+.net-meta{font-size:12px;color:var(--color-text-secondary);margin-bottom:12px;display:flex;flex-direction:column;gap:4px}
+.meta-row{display:flex;align-items:center;justify-content:space-between}
+.meta-key{color:var(--color-text-tertiary)}
+.token-bar-wrap{background:var(--color-background-secondary);border-radius:4px;height:4px;overflow:hidden;margin:8px 0}
+.token-bar{height:4px;border-radius:4px;transition:width 0.4s}
+.token-bar.high{background:#639922}
+.token-bar.mid{background:#EF9F27}
+.token-bar.low{background:#E24B4A}
+.net-actions{display:flex;gap:6px;margin-top:12px}
+.btn-sm{padding:5px 10px;font-size:12px;border-radius:6px;cursor:pointer;border:0.5px solid var(--color-border-secondary);background:var(--color-background-primary);color:var(--color-text-primary);display:inline-flex;align-items:center;gap:5px;transition:background 0.15s;font-weight:500}
+.btn-sm:hover{background:var(--color-background-secondary)}
+.btn-sm.danger{color:#A32D2D;border-color:#F7C1C1}
+.btn-sm.danger:hover{background:#FCEBEB}
+.btn-sm.connect{background:#6366f1;color:#fff;border-color:#6366f1}
+.btn-sm.connect:hover{background:#4f46e5}
+.btn-sm.refresh{color:#185FA5;border-color:#B5D4F4}
+.btn-sm.refresh:hover{background:#E6F1FB}
+.btn-sm svg{width:12px;height:12px}
+.section-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem}
+.posts-list{display:flex;flex-direction:column;gap:10px}
+.post-card{background:var(--color-background-primary);border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-lg);padding:14px 16px;display:flex;align-items:flex-start;gap:14px;transition:border-color 0.15s}
+.post-card:hover{border-color:var(--color-border-secondary)}
+.post-thumb{width:56px;height:56px;border-radius:8px;object-fit:cover;flex-shrink:0;background:var(--color-background-secondary);display:flex;align-items:center;justify-content:center;font-size:22px}
+.post-body{flex:1;min-width:0}
+.post-content{font-size:13px;color:var(--color-text-primary);margin-bottom:6px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;line-height:1.5}
+.post-platforms{display:flex;gap:5px;margin-bottom:7px;flex-wrap:wrap}
+.platform-pill{display:inline-flex;align-items:center;gap:4px;padding:2px 8px;border-radius:20px;font-size:11px;background:var(--color-background-secondary);color:var(--color-text-secondary);border:0.5px solid var(--color-border-tertiary)}
+.post-meta-row{display:flex;align-items:center;gap:12px;font-size:11px;color:var(--color-text-tertiary)}
+.post-status{display:inline-flex;align-items:center;gap:4px;padding:3px 9px;border-radius:20px;font-size:11px;font-weight:500}
+.post-status.published{background:#EAF3DE;color:#3B6D11}
+.post-status.scheduled{background:#E6F1FB;color:#185FA5}
+.post-status.draft{background:var(--color-background-secondary);color:var(--color-text-secondary)}
+.post-status.failed{background:#FCEBEB;color:#A32D2D}
+.post-actions-col{display:flex;flex-direction:column;gap:6px;align-items:flex-end;flex-shrink:0}
+.panel{display:none}
+.panel.active{display:block}
+.compose-box{background:var(--color-background-primary);border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-lg);padding:20px}
+.compose-box textarea{width:100%;border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-md);padding:12px;font-size:14px;resize:vertical;min-height:100px;background:var(--color-background-secondary);color:var(--color-text-primary);font-family:var(--font-sans);outline:none;transition:border-color 0.15s}
+.compose-box textarea:focus{border-color:#6366f1}
+.compose-footer{display:flex;align-items:center;justify-content:space-between;margin-top:12px;flex-wrap:wrap;gap:10px}
+.platforms-select{display:flex;gap:7px;flex-wrap:wrap}
+.pf-toggle{display:inline-flex;align-items:center;gap:6px;padding:5px 11px;border-radius:20px;font-size:12px;cursor:pointer;border:0.5px solid var(--color-border-secondary);background:var(--color-background-primary);color:var(--color-text-secondary);font-weight:500;transition:all 0.15s;user-select:none}
+.pf-toggle.sel{background:#eef2ff;border-color:#6366f1;color:#4f46e5}
+.compose-actions{display:flex;gap:8px}
+.divider{height:0.5px;background:var(--color-border-tertiary);margin:1.5rem 0}
+.no-data{text-align:center;padding:2.5rem 1rem;color:var(--color-text-tertiary);font-size:13px}
+@media(max-width:640px){.networks-grid{grid-template-columns:1fr}.stats-row{grid-template-columns:repeat(2,1fr)}}
+</style>
+
+<div class="dashboard">
+  <div class="top-bar">
+    <div class="logo">
+      <div class="logo-mark">
+        <svg viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="10" cy="10" r="3" fill="#6366f1"/>
+          <circle cx="3" cy="5" r="2" fill="#a5b4fc"/>
+          <circle cx="17" cy="5" r="2" fill="#a5b4fc"/>
+          <circle cx="3" cy="15" r="2" fill="#a5b4fc"/>
+          <circle cx="17" cy="15" r="2" fill="#a5b4fc"/>
+          <line x1="5" y1="5.8" x2="8" y2="8.5" stroke="#6366f1" stroke-width="1.5"/>
+          <line x1="15" y1="5.8" x2="12" y2="8.5" stroke="#6366f1" stroke-width="1.5"/>
+          <line x1="5" y1="14.2" x2="8" y2="11.5" stroke="#6366f1" stroke-width="1.5"/>
+          <line x1="15" y1="14.2" x2="12" y2="11.5" stroke="#6366f1" stroke-width="1.5"/>
+        </svg>
+      </div>
+      <span class="logo-text">Social<span>Sync</span></span>
+    </div>
+    <div class="top-actions">
+      <button class="btn" onclick="switchTab('compose')">
+        <svg viewBox="0 0 16 16" fill="currentColor"><path d="M11.5 1a1 1 0 0 1 .707.293l2.5 2.5a1 1 0 0 1 0 1.414l-9 9A1 1 0 0 1 5 14.5H2.5a1 1 0 0 1-1-1V11a1 1 0 0 1 .293-.707l9-9A1 1 0 0 1 11.5 1z"/></svg>
+        Nouveau post
+      </button>
+      <button class="btn btn-primary" onclick="switchTab('accounts')">
+        <svg viewBox="0 0 16 16" fill="currentColor"><path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm-5 6a5 5 0 0 1 10 0H3z"/></svg>
+        Comptes
+      </button>
+    </div>
+  </div>
+
+  <div class="tab-bar">
+    <div class="tab active" id="tab-overview" onclick="switchTab('overview')">Vue d'ensemble</div>
+    <div class="tab" id="tab-accounts" onclick="switchTab('accounts')">Réseaux connectés</div>
+    <div class="tab" id="tab-posts" onclick="switchTab('posts')">Publications</div>
+    <div class="tab" id="tab-compose" onclick="switchTab('compose')">Composer</div>
+  </div>
+
+  <!-- Overview -->
+  <div class="panel active" id="panel-overview">
+    <div class="stats-row">
+      <div class="stat-card">
+        <div class="stat-label">Comptes connectés</div>
+        <div class="stat-value green">4 / 6</div>
+        <div class="stat-sub">2 non connectés</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Posts ce mois</div>
+        <div class="stat-value">34</div>
+        <div class="stat-sub">+12 vs mois dernier</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Planifiés</div>
+        <div class="stat-value" style="color:#185FA5">7</div>
+        <div class="stat-sub">Prochains 7 jours</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Tokens expirant</div>
+        <div class="stat-value amber">2</div>
+        <div class="stat-sub">Action requise</div>
+      </div>
+    </div>
+
+    <div class="section-title">Activité récente</div>
+    <div class="posts-list">
+      <div class="post-card">
+        <div class="post-thumb">📸</div>
+        <div class="post-body">
+          <div class="post-content">Notre nouvelle collection printemps est enfin disponible ! Découvrez des pièces exclusives conçues pour...</div>
+          <div class="post-platforms">
+            <span class="platform-pill">𝕏</span>
+            <span class="platform-pill">Instagram</span>
+            <span class="platform-pill">Facebook</span>
+          </div>
+          <div class="post-meta-row">
+            <span class="post-status published"><span class="status-dot connected"></span> Publié</span>
+            <span>Aujourd'hui, 10:30</span>
+          </div>
+        </div>
+        <div class="post-actions-col">
+          <button class="btn-sm">Voir</button>
+        </div>
+      </div>
+      <div class="post-card">
+        <div class="post-thumb">🎯</div>
+        <div class="post-body">
+          <div class="post-content">Rejoignez notre webinaire exclusif sur les tendances marketing digital 2025. Places limitées !</div>
+          <div class="post-platforms">
+            <span class="platform-pill">LinkedIn</span>
+          </div>
+          <div class="post-meta-row">
+            <span class="post-status scheduled"><span class="status-dot" style="background:#378ADD"></span> Planifié</span>
+            <span>Demain, 09:00</span>
+          </div>
+        </div>
+        <div class="post-actions-col">
+          <button class="btn-sm">Modifier</button>
+        </div>
+      </div>
+      <div class="post-card">
+        <div class="post-thumb">📹</div>
+        <div class="post-body">
+          <div class="post-content">Behind the scenes – Comment nous créons nos contenus chaque semaine, révélé ici !</div>
+          <div class="post-platforms">
+            <span class="platform-pill">TikTok</span>
+            <span class="platform-pill">YouTube</span>
+          </div>
+          <div class="post-meta-row">
+            <span class="post-status failed"><span class="status-dot" style="background:#E24B4A"></span> Échec</span>
+            <span>Hier, 18:00</span>
+          </div>
+        </div>
+        <div class="post-actions-col">
+          <button class="btn-sm danger">Relancer</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Accounts -->
+  <div class="panel" id="panel-accounts">
+    <div class="section-header">
+      <div class="section-title" style="margin:0">6 réseaux disponibles</div>
+      <button class="btn btn-primary" style="font-size:12px;padding:6px 12px">+ Ajouter un réseau</button>
+    </div>
+    <div class="networks-grid">
+      <!-- X / Twitter -->
+      <div class="net-card connected">
+        <div class="net-header">
+          <div class="net-identity">
+            <div class="net-icon x">𝕏</div>
+            <div>
+              <div class="net-name">X (Twitter)</div>
+              <div class="net-handle">@votre_marque</div>
+            </div>
+          </div>
+          <span class="status-badge connected"><span class="status-dot connected"></span> Actif</span>
+        </div>
+        <div class="net-meta">
+          <div class="meta-row"><span class="meta-key">Compte ID</span><span>1042837...</span></div>
+          <div class="meta-row"><span class="meta-key">Expire le</span><span>28 juin 2025</span></div>
+          <div class="meta-row"><span class="meta-key">Validité token</span><span>87%</span></div>
+        </div>
+        <div class="token-bar-wrap"><div class="token-bar high" style="width:87%"></div></div>
+        <div class="net-actions">
+          <button class="btn-sm refresh">
+            <svg viewBox="0 0 16 16" fill="currentColor"><path d="M11.534 7h3.932a.25.25 0 0 1 .192.41l-1.966 2.36a.25.25 0 0 1-.384 0l-1.966-2.36a.25.25 0 0 1 .192-.41zm-11 2h3.932a.25.25 0 0 0 .192-.41L2.692 6.23a.25.25 0 0 0-.384 0L.342 8.59A.25.25 0 0 0 .534 9z"/><path fill-rule="evenodd" d="M8 3c-1.552 0-2.94.707-3.857 1.818a.5.5 0 1 1-.771-.636A6.002 6.002 0 0 1 13.917 7H12.9A5.002 5.002 0 0 0 8 3zM3.1 9a5.002 5.002 0 0 0 8.757 2.182.5.5 0 1 1 .771.636A6.002 6.002 0 0 1 2.083 9H3.1z"/></svg>
+            Rafraîchir
+          </button>
+          <button class="btn-sm danger">Déconnecter</button>
+        </div>
+      </div>
+
+      <!-- Facebook -->
+      <div class="net-card connected">
+        <div class="net-header">
+          <div class="net-identity">
+            <div class="net-icon fb">f</div>
+            <div>
+              <div class="net-name">Facebook</div>
+              <div class="net-handle">Ma Page Officielle</div>
+            </div>
+          </div>
+          <span class="status-badge connected"><span class="status-dot connected"></span> Actif</span>
+        </div>
+        <div class="net-meta">
+          <div class="meta-row"><span class="meta-key">Page ID</span><span>3847291...</span></div>
+          <div class="meta-row"><span class="meta-key">Expire le</span><span>15 mai 2025</span></div>
+          <div class="meta-row"><span class="meta-key">Validité token</span><span>62%</span></div>
+        </div>
+        <div class="token-bar-wrap"><div class="token-bar mid" style="width:62%"></div></div>
+        <div class="net-actions">
+          <button class="btn-sm refresh">
+            <svg viewBox="0 0 16 16" fill="currentColor"><path d="M11.534 7h3.932a.25.25 0 0 1 .192.41l-1.966 2.36a.25.25 0 0 1-.384 0l-1.966-2.36a.25.25 0 0 1 .192-.41zm-11 2h3.932a.25.25 0 0 0 .192-.41L2.692 6.23a.25.25 0 0 0-.384 0L.342 8.59A.25.25 0 0 0 .534 9z"/><path fill-rule="evenodd" d="M8 3c-1.552 0-2.94.707-3.857 1.818a.5.5 0 1 1-.771-.636A6.002 6.002 0 0 1 13.917 7H12.9A5.002 5.002 0 0 0 8 3zM3.1 9a5.002 5.002 0 0 0 8.757 2.182.5.5 0 1 1 .771.636A6.002 6.002 0 0 1 2.083 9H3.1z"/></svg>
+            Rafraîchir
+          </button>
+          <button class="btn-sm danger">Déconnecter</button>
+        </div>
+      </div>
+
+      <!-- Instagram -->
+      <div class="net-card expiring">
+        <div class="net-header">
+          <div class="net-identity">
+            <div class="net-icon ig">▲</div>
+            <div>
+              <div class="net-name">Instagram</div>
+              <div class="net-handle">@votre_marque</div>
+            </div>
+          </div>
+          <span class="status-badge expiring"><span class="status-dot expiring"></span> Expire bientôt</span>
+        </div>
+        <div class="net-meta">
+          <div class="meta-row"><span class="meta-key">Compte ID</span><span>9274810...</span></div>
+          <div class="meta-row" style="color:#BA7517;font-weight:500"><span class="meta-key">Expire le</span><span>⚠ 3 avril 2025</span></div>
+          <div class="meta-row"><span class="meta-key">Validité token</span><span>14%</span></div>
+        </div>
+        <div class="token-bar-wrap"><div class="token-bar low" style="width:14%"></div></div>
+        <div class="net-actions">
+          <button class="btn-sm connect">
+            <svg viewBox="0 0 16 16" fill="currentColor"><path d="M11.534 7h3.932a.25.25 0 0 1 .192.41l-1.966 2.36a.25.25 0 0 1-.384 0l-1.966-2.36a.25.25 0 0 1 .192-.41zm-11 2h3.932a.25.25 0 0 0 .192-.41L2.692 6.23a.25.25 0 0 0-.384 0L.342 8.59A.25.25 0 0 0 .534 9z"/><path fill-rule="evenodd" d="M8 3c-1.552 0-2.94.707-3.857 1.818a.5.5 0 1 1-.771-.636A6.002 6.002 0 0 1 13.917 7H12.9A5.002 5.002 0 0 0 8 3zM3.1 9a5.002 5.002 0 0 0 8.757 2.182.5.5 0 1 1 .771.636A6.002 6.002 0 0 1 2.083 9H3.1z"/></svg>
+            Renouveler maintenant
+          </button>
+        </div>
+      </div>
+
+      <!-- LinkedIn -->
+      <div class="net-card connected">
+        <div class="net-header">
+          <div class="net-identity">
+            <div class="net-icon li">in</div>
+            <div>
+              <div class="net-name">LinkedIn</div>
+              <div class="net-handle">Votre Entreprise SAS</div>
+            </div>
+          </div>
+          <span class="status-badge connected"><span class="status-dot connected"></span> Actif</span>
+        </div>
+        <div class="net-meta">
+          <div class="meta-row"><span class="meta-key">Org ID</span><span>7654321...</span></div>
+          <div class="meta-row"><span class="meta-key">Expire le</span><span>1 déc 2025</span></div>
+          <div class="meta-row"><span class="meta-key">Validité token</span><span>94%</span></div>
+        </div>
+        <div class="token-bar-wrap"><div class="token-bar high" style="width:94%"></div></div>
+        <div class="net-actions">
+          <button class="btn-sm refresh">
+            <svg viewBox="0 0 16 16" fill="currentColor"><path d="M11.534 7h3.932a.25.25 0 0 1 .192.41l-1.966 2.36a.25.25 0 0 1-.384 0l-1.966-2.36a.25.25 0 0 1 .192-.41zm-11 2h3.932a.25.25 0 0 0 .192-.41L2.692 6.23a.25.25 0 0 0-.384 0L.342 8.59A.25.25 0 0 0 .534 9z"/><path fill-rule="evenodd" d="M8 3c-1.552 0-2.94.707-3.857 1.818a.5.5 0 1 1-.771-.636A6.002 6.002 0 0 1 13.917 7H12.9A5.002 5.002 0 0 0 8 3zM3.1 9a5.002 5.002 0 0 0 8.757 2.182.5.5 0 1 1 .771.636A6.002 6.002 0 0 1 2.083 9H3.1z"/></svg>
+            Rafraîchir
+          </button>
+          <button class="btn-sm danger">Déconnecter</button>
+        </div>
+      </div>
+
+      <!-- YouTube -->
+      <div class="net-card expiring">
+        <div class="net-header">
+          <div class="net-identity">
+            <div class="net-icon yt">▶</div>
+            <div>
+              <div class="net-name">YouTube</div>
+              <div class="net-handle">Votre Chaîne</div>
+            </div>
+          </div>
+          <span class="status-badge expiring"><span class="status-dot expiring"></span> Expire bientôt</span>
+        </div>
+        <div class="net-meta">
+          <div class="meta-row"><span class="meta-key">Channel ID</span><span>UCx9k3...</span></div>
+          <div class="meta-row" style="color:#BA7517;font-weight:500"><span class="meta-key">Expire le</span><span>⚠ 5 avril 2025</span></div>
+          <div class="meta-row"><span class="meta-key">Validité token</span><span>9%</span></div>
+        </div>
+        <div class="token-bar-wrap"><div class="token-bar low" style="width:9%"></div></div>
+        <div class="net-actions">
+          <button class="btn-sm connect">
+            <svg viewBox="0 0 16 16" fill="currentColor"><path d="M11.534 7h3.932a.25.25 0 0 1 .192.41l-1.966 2.36a.25.25 0 0 1-.384 0l-1.966-2.36a.25.25 0 0 1 .192-.41zm-11 2h3.932a.25.25 0 0 0 .192-.41L2.692 6.23a.25.25 0 0 0-.384 0L.342 8.59A.25.25 0 0 0 .534 9z"/><path fill-rule="evenodd" d="M8 3c-1.552 0-2.94.707-3.857 1.818a.5.5 0 1 1-.771-.636A6.002 6.002 0 0 1 13.917 7H12.9A5.002 5.002 0 0 0 8 3zM3.1 9a5.002 5.002 0 0 0 8.757 2.182.5.5 0 1 1 .771.636A6.002 6.002 0 0 1 2.083 9H3.1z"/></svg>
+            Renouveler maintenant
+          </button>
+        </div>
+      </div>
+
+      <!-- TikTok -->
+      <div class="net-card disconnected">
+        <div class="net-header">
+          <div class="net-identity">
+            <div class="net-icon tt">♪</div>
+            <div>
+              <div class="net-name">TikTok</div>
+              <div class="net-handle">Non connecté</div>
+            </div>
+          </div>
+          <span class="status-badge disconnected"><span class="status-dot disconnected"></span> Inactif</span>
+        </div>
+        <div class="net-meta">
+          <div class="meta-row"><span class="meta-key">Statut</span><span style="color:var(--color-text-tertiary)">Aucune session</span></div>
+          <div class="meta-row"><span class="meta-key">Dernière connexion</span><span style="color:var(--color-text-tertiary)">Jamais</span></div>
+        </div>
+        <div style="background:var(--color-background-secondary);border-radius:8px;padding:12px;text-align:center;margin:8px 0;font-size:12px;color:var(--color-text-tertiary)">
+          Connectez votre compte TikTok pour publier des vidéos courtes directement.
+        </div>
+        <div class="net-actions">
+          <button class="btn-sm connect" style="width:100%;justify-content:center">
+            <svg viewBox="0 0 16 16" fill="currentColor" style="width:12px;height:12px"><path d="M8 1a7 7 0 1 0 0 14A7 7 0 0 0 8 1zm0 1a6 6 0 1 1 0 12A6 6 0 0 1 8 2zm.5 4.5V4h-1v2.5H5v1h2.5V10h1V7.5H11v-1H8.5z"/></svg>
+            Connecter TikTok
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Posts -->
+  <div class="panel" id="panel-posts">
+    <div class="section-header">
+      <div class="section-title" style="margin:0">Toutes les publications</div>
+      <div style="display:flex;gap:8px">
+        <select style="font-size:12px;padding:5px 10px;border-radius:6px;border:0.5px solid var(--color-border-secondary);background:var(--color-background-primary);color:var(--color-text-primary)">
+          <option>Tous les statuts</option>
+          <option>Publiés</option>
+          <option>Planifiés</option>
+          <option>Brouillons</option>
+          <option>Échoués</option>
+        </select>
+        <select style="font-size:12px;padding:5px 10px;border-radius:6px;border:0.5px solid var(--color-border-secondary);background:var(--color-background-primary);color:var(--color-text-primary)">
+          <option>Tous les réseaux</option>
+          <option>X</option>
+          <option>Instagram</option>
+          <option>Facebook</option>
+          <option>LinkedIn</option>
+        </select>
+      </div>
+    </div>
+    <div class="posts-list">
+      <div class="post-card">
+        <div class="post-thumb">📸</div>
+        <div class="post-body">
+          <div class="post-content">Notre nouvelle collection printemps est enfin disponible ! Découvrez des pièces exclusives conçues pour...</div>
+          <div class="post-platforms">
+            <span class="platform-pill">𝕏</span>
+            <span class="platform-pill">Instagram</span>
+            <span class="platform-pill">Facebook</span>
+          </div>
+          <div class="post-meta-row">
+            <span class="post-status published"><span class="status-dot connected"></span> Publié</span>
+            <span>31 mars 2025, 10:30</span>
+          </div>
+        </div>
+        <div class="post-actions-col">
+          <button class="btn-sm">Voir stats</button>
+          <button class="btn-sm">Dupliquer</button>
+        </div>
+      </div>
+      <div class="post-card">
+        <div class="post-thumb">🎯</div>
+        <div class="post-body">
+          <div class="post-content">Rejoignez notre webinaire exclusif sur les tendances marketing digital 2025. Places limitées !</div>
+          <div class="post-platforms">
+            <span class="platform-pill">LinkedIn</span>
+          </div>
+          <div class="post-meta-row">
+            <span class="post-status scheduled"><span class="status-dot" style="background:#378ADD"></span> Planifié</span>
+            <span>1 avril 2025, 09:00</span>
+          </div>
+        </div>
+        <div class="post-actions-col">
+          <button class="btn-sm">Modifier</button>
+          <button class="btn-sm danger">Annuler</button>
+        </div>
+      </div>
+      <div class="post-card">
+        <div class="post-thumb">📝</div>
+        <div class="post-body">
+          <div class="post-content">Les 5 astuces pour booster votre engagement sur les réseaux sociaux en 2025 — thread complet</div>
+          <div class="post-platforms">
+            <span class="platform-pill">𝕏</span>
+          </div>
+          <div class="post-meta-row">
+            <span class="post-status draft"><span class="status-dot disconnected"></span> Brouillon</span>
+            <span>Modifié il y a 2h</span>
+          </div>
+        </div>
+        <div class="post-actions-col">
+          <button class="btn-sm">Modifier</button>
+        </div>
+      </div>
+      <div class="post-card">
+        <div class="post-thumb">📹</div>
+        <div class="post-body">
+          <div class="post-content">Behind the scenes – Comment nous créons nos contenus chaque semaine, révélé ici !</div>
+          <div class="post-platforms">
+            <span class="platform-pill">TikTok</span>
+            <span class="platform-pill">YouTube</span>
+          </div>
+          <div class="post-meta-row">
+            <span class="post-status failed"><span class="status-dot" style="background:#E24B4A"></span> Échec — compte déconnecté</span>
+          </div>
+        </div>
+        <div class="post-actions-col">
+          <button class="btn-sm danger">Relancer</button>
+          <button class="btn-sm">Détails</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Compose -->
+  <div class="panel" id="panel-compose">
+    <div class="compose-box">
+      <div class="section-title">Rédiger un post</div>
+      <textarea placeholder="Quoi de neuf ? Rédigez votre contenu ici..."></textarea>
+      <div style="display:flex;gap:8px;margin-top:10px;flex-wrap:wrap">
+        <button class="btn-sm">
+          <svg viewBox="0 0 16 16" fill="currentColor" style="width:12px;height:12px"><path d="M4.502 9a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3z"/><path d="M14.002 13a2 2 0 0 1-2 2h-10a2 2 0 0 1-2-2V5A2 2 0 0 1 2 3a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v8a2 2 0 0 1-1.998 2zM14 2H4a1 1 0 0 0-1 1h9.002a2 2 0 0 1 2 2v7A1 1 0 0 0 15 11V3a1 1 0 0 0-1-1zM2.002 4a1 1 0 0 0-1 1v8l2.646-2.354a.5.5 0 0 1 .63-.062l2.66 1.773 3.71-3.71a.5.5 0 0 1 .577-.094l1.777 1.947V5a1 1 0 0 0-1-1h-10z"/></svg>
+          Ajouter média
+        </button>
+        <button class="btn-sm">
+          <svg viewBox="0 0 16 16" fill="currentColor" style="width:12px;height:12px"><path d="M8 3.5a.5.5 0 0 0-1 0V9a.5.5 0 0 0 .252.434l3.5 2a.5.5 0 0 0 .496-.868L8 8.71V3.5z"/><path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm7-8A7 7 0 1 1 1 8a7 7 0 0 1 14 0z"/></svg>
+          Planifier
+        </button>
+      </div>
+      <div class="divider"></div>
+      <div class="section-title">Publier sur</div>
+      <div class="platforms-select" id="pf-select">
+        <div class="pf-toggle sel" onclick="togglePf(this)">𝕏 X</div>
+        <div class="pf-toggle sel" onclick="togglePf(this)">f Facebook</div>
+        <div class="pf-toggle" onclick="togglePf(this)">▲ Instagram</div>
+        <div class="pf-toggle sel" onclick="togglePf(this)">in LinkedIn</div>
+        <div class="pf-toggle" onclick="togglePf(this)" style="opacity:0.5;cursor:not-allowed" title="Token expiré">▶ YouTube</div>
+        <div class="pf-toggle" onclick="togglePf(this)" style="opacity:0.5;cursor:not-allowed" title="Non connecté">♪ TikTok</div>
+      </div>
+      <div class="compose-footer">
+        <div style="font-size:12px;color:var(--color-text-tertiary)">3 réseaux sélectionnés · 0 / 280 caractères</div>
+        <div class="compose-actions">
+          <button class="btn">Enregistrer brouillon</button>
+          <button class="btn btn-primary">Publier maintenant</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+function switchTab(name){
+  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+  document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));
+  document.getElementById('tab-'+name).classList.add('active');
+  document.getElementById('panel-'+name).classList.add('active');
+}
+function togglePf(el){
+  if(el.style.opacity==='0.5')return;
+  el.classList.toggle('sel');
+}
+</script>

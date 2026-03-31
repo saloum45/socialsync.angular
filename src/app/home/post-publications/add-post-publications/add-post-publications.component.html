@@ -1,0 +1,145 @@
+<div class="modal-header" data-bs-theme="ligth">
+      <h1 class="modal-title fs-5">Ajouter  PostPublications</h1>
+      <button type="button" class="btn-close" aria-label="Close" (click)="activeModal.close()"></button>
+    </div>
+    <div class="modal-body">
+      <form [formGroup]="reactiveForm_add_post_publications" 
+            (ngSubmit)="onSubmit_add_post_publications()" 
+            #form_add_post_publications="ngForm" 
+            class="row">
+        
+ <!-- Champ Id Entreprise (Clé étrangère vers entreprises) -->
+            <div class="form-group col-sm-12 mb-2">
+              <label  for="id_entreprise">Entreprises <span class="text-danger">*</span></label>
+               <ng-select id="id_entreprise" [ngClass]="{ 'is-invalid': submitted() && f.id_entreprise.errors }"
+        formControlName="id_entreprise" [items]="form_details?.entreprises" bindLabel="nom" bindValue="id" placeholder="Sélectionnez Entreprises" virtualScroll="true">
+      </ng-select>
+              @if (submitted() && f.id_entreprise.errors) {
+                <div class="invalid-feedback">
+                  @if (f.id_entreprise.errors.required) {
+                    <div>Ce champ est obligatoire</div>
+                  }
+                </div>
+              }
+            </div>
+
+ <!-- Champ Id User (Clé étrangère vers users) -->
+            <div class="form-group col-sm-12 mb-2">
+              <label  for="id_user">Users <span class="text-danger">*</span></label>
+               <ng-select id="id_user" [ngClass]="{ 'is-invalid': submitted() && f.id_user.errors }"
+        formControlName="id_user" [items]="form_details?.users" bindLabel="prenom" bindValue="id" placeholder="Sélectionnez Users" virtualScroll="true">
+      </ng-select>
+              @if (submitted() && f.id_user.errors) {
+                <div class="invalid-feedback">
+                  @if (f.id_user.errors.required) {
+                    <div>Ce champ est obligatoire</div>
+                  }
+                </div>
+              }
+            </div>
+
+              <!-- Champ Post Id -->
+              <div class="form-group col-sm-12 mb-2">
+                <label  for="post_id">Post Id <span class="text-danger">*</span></label>
+                <input id="post_id" class="form-control" 
+                       type="text" 
+                       formControlName="post_id" 
+                       placeholder="Post Id"  
+                       [ngClass]="{ 'is-invalid': submitted() && f.post_id.errors }"/>
+                @if (submitted() && f.post_id.errors) {
+                  <div class="invalid-feedback">
+                    @if (f.post_id.errors.required) {
+                      <div>Ce champ est obligatoire</div>
+                    }
+                  </div>
+                }
+              </div>
+
+ <!-- Champ Id Social Account (Clé étrangère vers social_accounts) -->
+            <div class="form-group col-sm-12 mb-2">
+              <label  for="id_social_account">Social Accounts <span class="text-danger">*</span></label>
+               <ng-select id="id_social_account" [ngClass]="{ 'is-invalid': submitted() && f.id_social_account.errors }"
+        formControlName="id_social_account" [items]="form_details?.social_accounts" bindLabel="account_name" bindValue="id" placeholder="Sélectionnez Social Accounts" virtualScroll="true">
+      </ng-select>
+              @if (submitted() && f.id_social_account.errors) {
+                <div class="invalid-feedback">
+                  @if (f.id_social_account.errors.required) {
+                    <div>Ce champ est obligatoire</div>
+                  }
+                </div>
+              }
+            </div>
+
+              <!-- Champ Platform Post Id -->
+              <div class="form-group col-sm-12 mb-2">
+                <label  for="platform_post_id">Platform Post Id <span class="text-danger">*</span></label>
+                <input id="platform_post_id" class="form-control" 
+                       type="text" 
+                       formControlName="platform_post_id" 
+                       placeholder="Platform Post Id"  
+                       [ngClass]="{ 'is-invalid': submitted() && f.platform_post_id.errors }"/>
+                @if (submitted() && f.platform_post_id.errors) {
+                  <div class="invalid-feedback">
+                    @if (f.platform_post_id.errors.required) {
+                      <div>Ce champ est obligatoire</div>
+                    }
+                  </div>
+                }
+              </div>
+
+              <!-- Champ Status -->
+              <div class="form-group col-sm-12 mb-2">
+                <label  for="status">Status <span class="text-danger">*</span></label>
+                <input id="status" class="form-control" 
+                       type="text" 
+                       formControlName="status" 
+                       placeholder="Status"  
+                       [ngClass]="{ 'is-invalid': submitted() && f.status.errors }"/>
+                @if (submitted() && f.status.errors) {
+                  <div class="invalid-feedback">
+                    @if (f.status.errors.required) {
+                      <div>Ce champ est obligatoire</div>
+                    }
+                  </div>
+                }
+              </div>
+
+              <!-- Champ Published At -->
+              <div class="form-group col-sm-12 mb-2">
+                <label  for="published_at">Published At <span class="text-danger">*</span></label>
+                <input id="published_at" class="form-control" 
+                       type="text" 
+                       formControlName="published_at" 
+                       placeholder="Published At"  
+                       [ngClass]="{ 'is-invalid': submitted() && f.published_at.errors }"/>
+                @if (submitted() && f.published_at.errors) {
+                  <div class="invalid-feedback">
+                    @if (f.published_at.errors.required) {
+                      <div>Ce champ est obligatoire</div>
+                    }
+                  </div>
+                }
+              </div>
+      </form>
+    </div>
+        <!-- Footer -->
+    <div class="modal-footer border-0 pt-0">
+  <button type="button" class="btn btn-outline-secondary px-4" (click)="activeModal.close()">
+    Annuler
+  </button>
+  <button type="button" class="btn btn-primary px-4" [disabled]="
+      loading_add_post_publications() ||
+      loading_get_details_add_post_publications_form()
+    " (click)="form_add_post_publications.ngSubmit.emit()">
+    @if(loading_add_post_publications()){
+      <span>
+      <i class="bi bi-hourglass-split me-1"></i> Enregistrement...
+      </span>
+    }
+    @if(!loading_add_post_publications()){
+    <span>
+      <i class="bi bi-check-circle me-1"></i> Enregistrer
+    </span>
+  }
+  </button>
+</div>

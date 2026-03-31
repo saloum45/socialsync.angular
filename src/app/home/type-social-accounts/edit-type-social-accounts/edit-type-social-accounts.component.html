@@ -1,0 +1,81 @@
+<div class="modal-header" data-bs-theme="ligth">
+        <h1 class="modal-title fs-5">Modifier TypeSocialAccounts</h1>
+        <button type="button" class="btn-close" aria-label="Close" (click)="activeModal.close()"></button>
+    </div>
+    <div class="modal-body">
+      <form [formGroup]="reactiveForm_edit_type_social_accounts" (ngSubmit)="onSubmit_edit_type_social_accounts()" #form_edit_type_social_accounts="ngForm" class="row">
+        
+
+              <!-- Champ Libelle -->
+              <div class="form-group col-sm-12 mb-2">
+                <label  for="libelle">Libelle <span class="text-danger">*</span></label>
+                <input id="libelle" class="form-control" 
+                       type="text" 
+                       formControlName="libelle" 
+                       placeholder="Libelle"  
+                       [ngClass]="{ 'is-invalid': submitted() && f.libelle.errors }"/>
+                @if (submitted() && f.libelle.errors) {
+                  <div class="invalid-feedback">
+                    @if (f.libelle.errors.required) {
+                      <div>Ce champ est obligatoire</div>
+                    }
+                  </div>
+                }
+              </div>
+
+              <!-- Champ Logo -->
+              <div class="form-group col-sm-12 mb-2">
+                <label  for="logo">Logo <span class="text-danger">*</span></label>
+                <input id="logo" class="form-control" 
+                       type="text" 
+                       formControlName="logo" 
+                       placeholder="Logo"  
+                       [ngClass]="{ 'is-invalid': submitted() && f.logo.errors }"/>
+                @if (submitted() && f.logo.errors) {
+                  <div class="invalid-feedback">
+                    @if (f.logo.errors.required) {
+                      <div>Ce champ est obligatoire</div>
+                    }
+                  </div>
+                }
+              </div>
+
+              <!-- Champ Lien -->
+              <div class="form-group col-sm-12 mb-2">
+                <label  for="lien">Lien <span class="text-danger">*</span></label>
+                <input id="lien" class="form-control" 
+                       type="text" 
+                       formControlName="lien" 
+                       placeholder="Lien"  
+                       [ngClass]="{ 'is-invalid': submitted() && f.lien.errors }"/>
+                @if (submitted() && f.lien.errors) {
+                  <div class="invalid-feedback">
+                    @if (f.lien.errors.required) {
+                      <div>Ce champ est obligatoire</div>
+                    }
+                  </div>
+                }
+              </div>
+      </form>
+    </div>
+    <!-- Footer -->
+<div class="modal-footer border-0 pt-0">
+  <button type="button" class="btn btn-outline-secondary px-4" (click)="activeModal.close()">
+    Annuler
+  </button>
+  <button type="button" class="btn btn-primary px-4" [disabled]="
+      loading_edit_type_social_accounts() ||
+      loading_get_details_edit_type_social_accounts_form() ||reactiveForm_edit_type_social_accounts.pristine
+    " (click)="form_edit_type_social_accounts.ngSubmit.emit()">
+    @if(loading_edit_type_social_accounts()){
+      <span>
+      <i class="bi bi-hourglass-split me-1"></i> Enregistrement...
+      </span>
+    }
+    @if(!loading_edit_type_social_accounts()){
+    <span>
+      <i class="bi bi-check-circle me-1"></i> Enregistrer
+    </span>
+  }
+  </button>
+</div>

@@ -1,0 +1,138 @@
+
+$sidebar-width: 6vw;
+$primary: #233c6c; // Nouvelle couleur primaire
+
+:host {
+  --bg-main: #fcfcfc;
+  --bg-sidebar: #ffffff;
+  --text-main: #333333;
+  --border-color: #ececec;
+  --bg-elements: #f5f5f5;
+  display: block;
+}
+
+:host-context(body.dark-mode) {
+  --bg-main: #121212;
+  --bg-sidebar: #1a1a1a;
+  --text-main: #e0e0e0;
+  --border-color: #2d2d2d;
+  --bg-elements: #2d2d2d;
+}
+
+
+
+/* SIDEBAR */
+.sidebar {
+  width: $sidebar-width;
+  height: 100%;
+  background: var(--bg-sidebar);
+  border-right: 1px solid var(--border-color);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 25px 0;
+  flex-shrink: 0;
+  z-index: 1050;
+  transition: transform 0.3s ease;
+
+  .sidebar-header .logo-box {
+    width: 42px;
+    height: 42px;
+    background: rgba($primary, 0.1); // Teinte légère de la couleur primaire
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 30px;
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 12px;
+    }
+  }
+
+  .sidebar-nav {
+    flex-grow: 1;
+    width: 100%;
+    overflow-y: auto;
+    overflow-x: visible;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    scrollbar-width: none;
+    &::-webkit-scrollbar {
+      display: none;
+    }
+
+    .nav-link {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 5px;
+      text-decoration: none;
+      color: #bababa;
+      transition: 0.2s;
+      width: 100%;
+      padding: 10px 0;
+
+      i {
+        font-size: 1.4rem;
+        transition: 0.2s;
+      }
+      .nav-text {
+        font-size: 0.65rem;
+        font-weight: 500;
+        text-align: center;
+        max-width: 80px;
+      }
+
+      &.active,
+      &:hover {
+        color: var(--text-main);
+        i {
+          color: $primary;
+        }
+      }
+    }
+  }
+
+  .sidebar-footer {
+    flex-shrink: 0;
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    .theme-toggle {
+      width: 48px;
+      height: 24px;
+      background: rgba($primary, 0.2);
+      border-radius: 20px;
+      position: relative;
+      cursor: pointer;
+      .toggle-thumb {
+        width: 20px;
+        height: 20px;
+        background: #000;
+        border-radius: 50%;
+        position: absolute;
+        right: 2px;
+        top: 2px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #fff;
+        font-size: 0.6rem;
+        transition: 0.3s;
+      }
+      &.active {
+        background: $primary;
+        .toggle-thumb {
+          right: 26px;
+        }
+      }
+    }
+  }
+}
+

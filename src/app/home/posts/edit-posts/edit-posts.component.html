@@ -1,0 +1,149 @@
+<div class="modal-header" data-bs-theme="ligth">
+        <h1 class="modal-title fs-5">Modifier Posts</h1>
+        <button type="button" class="btn-close" aria-label="Close" (click)="activeModal.close()"></button>
+    </div>
+    <div class="modal-body">
+      <form [formGroup]="reactiveForm_edit_posts" (ngSubmit)="onSubmit_edit_posts()" #form_edit_posts="ngForm" class="row">
+        
+
+            <!-- Champ Id Entreprise (Clé étrangère vers entreprises) -->
+            <div class="form-group col-sm-12 mb-2">
+              <label  for="id_entreprise">Entreprises <span class="text-danger">*</span></label>
+               <ng-select id="id_entreprise" [ngClass]="{ 'is-invalid': submitted() && f.id_entreprise.errors }"
+        formControlName="id_entreprise" [items]="form_details?.entreprises" bindLabel="nom" bindValue="id" placeholder="Sélectionnez Entreprises" virtualScroll="true">
+      </ng-select>
+
+
+              @if (submitted() && f.id_entreprise.errors) {
+                <div class="invalid-feedback">
+                  @if (f.id_entreprise.errors.required) {
+                    <div>Ce champ est obligatoire</div>
+                  }
+                </div>
+              }
+            </div>
+
+            <!-- Champ Id User (Clé étrangère vers users) -->
+            <div class="form-group col-sm-12 mb-2">
+              <label  for="id_user">Users <span class="text-danger">*</span></label>
+               <ng-select id="id_user" [ngClass]="{ 'is-invalid': submitted() && f.id_user.errors }"
+        formControlName="id_user" [items]="form_details?.users" bindLabel="prenom" bindValue="id" placeholder="Sélectionnez Users" virtualScroll="true">
+      </ng-select>
+
+
+              @if (submitted() && f.id_user.errors) {
+                <div class="invalid-feedback">
+                  @if (f.id_user.errors.required) {
+                    <div>Ce champ est obligatoire</div>
+                  }
+                </div>
+              }
+            </div>
+
+              <!-- Champ Contenu -->
+              <div class="form-group col-sm-12 mb-2">
+                <label  for="contenu">Contenu <span class="text-danger">*</span></label>
+                <input id="contenu" class="form-control" 
+                       type="text" 
+                       formControlName="contenu" 
+                       placeholder="Contenu"  
+                       [ngClass]="{ 'is-invalid': submitted() && f.contenu.errors }"/>
+                @if (submitted() && f.contenu.errors) {
+                  <div class="invalid-feedback">
+                    @if (f.contenu.errors.required) {
+                      <div>Ce champ est obligatoire</div>
+                    }
+                  </div>
+                }
+              </div>
+
+              <!-- Champ Scheduled At -->
+              <div class="form-group col-sm-12 mb-2">
+                <label  for="scheduled_at">Scheduled At <span class="text-danger">*</span></label>
+                <input id="scheduled_at" class="form-control" 
+                       type="text" 
+                       formControlName="scheduled_at" 
+                       placeholder="Scheduled At"  
+                       [ngClass]="{ 'is-invalid': submitted() && f.scheduled_at.errors }"/>
+                @if (submitted() && f.scheduled_at.errors) {
+                  <div class="invalid-feedback">
+                    @if (f.scheduled_at.errors.required) {
+                      <div>Ce champ est obligatoire</div>
+                    }
+                  </div>
+                }
+              </div>
+
+              <!-- Champ Status -->
+              <div class="form-group col-sm-12 mb-2">
+                <label  for="status">Status <span class="text-danger">*</span></label>
+                <input id="status" class="form-control" 
+                       type="text" 
+                       formControlName="status" 
+                       placeholder="Status"  
+                       [ngClass]="{ 'is-invalid': submitted() && f.status.errors }"/>
+                @if (submitted() && f.status.errors) {
+                  <div class="invalid-feedback">
+                    @if (f.status.errors.required) {
+                      <div>Ce champ est obligatoire</div>
+                    }
+                  </div>
+                }
+              </div>
+
+              <!-- Champ Media Url -->
+              <div class="form-group col-sm-12 mb-2">
+                <label  for="media_url">Media Url <span class="text-danger">*</span></label>
+                <input id="media_url" class="form-control" 
+                       type="text" 
+                       formControlName="media_url" 
+                       placeholder="Media Url"  
+                       [ngClass]="{ 'is-invalid': submitted() && f.media_url.errors }"/>
+                @if (submitted() && f.media_url.errors) {
+                  <div class="invalid-feedback">
+                    @if (f.media_url.errors.required) {
+                      <div>Ce champ est obligatoire</div>
+                    }
+                  </div>
+                }
+              </div>
+
+              <!-- Champ Media -->
+              <div class="form-group col-sm-12 mb-2">
+                <label  for="media">Media <span class="text-danger">*</span></label>
+                <input id="media" class="form-control" 
+                       type="text" 
+                       formControlName="media" 
+                       placeholder="Media"  
+                       [ngClass]="{ 'is-invalid': submitted() && f.media.errors }"/>
+                @if (submitted() && f.media.errors) {
+                  <div class="invalid-feedback">
+                    @if (f.media.errors.required) {
+                      <div>Ce champ est obligatoire</div>
+                    }
+                  </div>
+                }
+              </div>
+      </form>
+    </div>
+    <!-- Footer -->
+<div class="modal-footer border-0 pt-0">
+  <button type="button" class="btn btn-outline-secondary px-4" (click)="activeModal.close()">
+    Annuler
+  </button>
+  <button type="button" class="btn btn-primary px-4" [disabled]="
+      loading_edit_posts() ||
+      loading_get_details_edit_posts_form() ||reactiveForm_edit_posts.pristine
+    " (click)="form_edit_posts.ngSubmit.emit()">
+    @if(loading_edit_posts()){
+      <span>
+      <i class="bi bi-hourglass-split me-1"></i> Enregistrement...
+      </span>
+    }
+    @if(!loading_edit_posts()){
+    <span>
+      <i class="bi bi-check-circle me-1"></i> Enregistrer
+    </span>
+  }
+  </button>
+</div>

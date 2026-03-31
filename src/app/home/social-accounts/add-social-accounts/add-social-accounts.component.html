@@ -1,0 +1,162 @@
+<div class="modal-header" data-bs-theme="ligth">
+      <h1 class="modal-title fs-5">Ajouter  SocialAccounts</h1>
+      <button type="button" class="btn-close" aria-label="Close" (click)="activeModal.close()"></button>
+    </div>
+    <div class="modal-body">
+      <form [formGroup]="reactiveForm_add_social_accounts" 
+            (ngSubmit)="onSubmit_add_social_accounts()" 
+            #form_add_social_accounts="ngForm" 
+            class="row">
+        
+ <!-- Champ Id Entreprise (Clé étrangère vers entreprises) -->
+            <div class="form-group col-sm-12 mb-2">
+              <label  for="id_entreprise">Entreprises <span class="text-danger">*</span></label>
+               <ng-select id="id_entreprise" [ngClass]="{ 'is-invalid': submitted() && f.id_entreprise.errors }"
+        formControlName="id_entreprise" [items]="form_details?.entreprises" bindLabel="nom" bindValue="id" placeholder="Sélectionnez Entreprises" virtualScroll="true">
+      </ng-select>
+              @if (submitted() && f.id_entreprise.errors) {
+                <div class="invalid-feedback">
+                  @if (f.id_entreprise.errors.required) {
+                    <div>Ce champ est obligatoire</div>
+                  }
+                </div>
+              }
+            </div>
+
+ <!-- Champ Id User (Clé étrangère vers users) -->
+            <div class="form-group col-sm-12 mb-2">
+              <label  for="id_user">Users <span class="text-danger">*</span></label>
+               <ng-select id="id_user" [ngClass]="{ 'is-invalid': submitted() && f.id_user.errors }"
+        formControlName="id_user" [items]="form_details?.users" bindLabel="prenom" bindValue="id" placeholder="Sélectionnez Users" virtualScroll="true">
+      </ng-select>
+              @if (submitted() && f.id_user.errors) {
+                <div class="invalid-feedback">
+                  @if (f.id_user.errors.required) {
+                    <div>Ce champ est obligatoire</div>
+                  }
+                </div>
+              }
+            </div>
+
+ <!-- Champ Id Type Social Account (Clé étrangère vers type_social_accounts) -->
+            <div class="form-group col-sm-12 mb-2">
+              <label  for="id_type_social_account">Type Social Accounts <span class="text-danger">*</span></label>
+               <ng-select id="id_type_social_account" [ngClass]="{ 'is-invalid': submitted() && f.id_type_social_account.errors }"
+        formControlName="id_type_social_account" [items]="form_details?.type_social_accounts" bindLabel="libelle" bindValue="id" placeholder="Sélectionnez Type Social Accounts" virtualScroll="true">
+      </ng-select>
+              @if (submitted() && f.id_type_social_account.errors) {
+                <div class="invalid-feedback">
+                  @if (f.id_type_social_account.errors.required) {
+                    <div>Ce champ est obligatoire</div>
+                  }
+                </div>
+              }
+            </div>
+
+              <!-- Champ Account Id -->
+              <div class="form-group col-sm-12 mb-2">
+                <label  for="account_id">Account Id <span class="text-danger">*</span></label>
+                <input id="account_id" class="form-control" 
+                       type="text" 
+                       formControlName="account_id" 
+                       placeholder="Account Id"  
+                       [ngClass]="{ 'is-invalid': submitted() && f.account_id.errors }"/>
+                @if (submitted() && f.account_id.errors) {
+                  <div class="invalid-feedback">
+                    @if (f.account_id.errors.required) {
+                      <div>Ce champ est obligatoire</div>
+                    }
+                  </div>
+                }
+              </div>
+
+              <!-- Champ Account Name -->
+              <div class="form-group col-sm-12 mb-2">
+                <label  for="account_name">Account Name <span class="text-danger">*</span></label>
+                <input id="account_name" class="form-control" 
+                       type="text" 
+                       formControlName="account_name" 
+                       placeholder="Account Name"  
+                       [ngClass]="{ 'is-invalid': submitted() && f.account_name.errors }"/>
+                @if (submitted() && f.account_name.errors) {
+                  <div class="invalid-feedback">
+                    @if (f.account_name.errors.required) {
+                      <div>Ce champ est obligatoire</div>
+                    }
+                  </div>
+                }
+              </div>
+
+              <!-- Champ Access Token -->
+              <div class="form-group col-sm-12 mb-2">
+                <label  for="access_token">Access Token <span class="text-danger">*</span></label>
+                <input id="access_token" class="form-control" 
+                       type="text" 
+                       formControlName="access_token" 
+                       placeholder="Access Token"  
+                       [ngClass]="{ 'is-invalid': submitted() && f.access_token.errors }"/>
+                @if (submitted() && f.access_token.errors) {
+                  <div class="invalid-feedback">
+                    @if (f.access_token.errors.required) {
+                      <div>Ce champ est obligatoire</div>
+                    }
+                  </div>
+                }
+              </div>
+
+              <!-- Champ Refresh Token -->
+              <div class="form-group col-sm-12 mb-2">
+                <label  for="refresh_token">Refresh Token <span class="text-danger">*</span></label>
+                <input id="refresh_token" class="form-control" 
+                       type="text" 
+                       formControlName="refresh_token" 
+                       placeholder="Refresh Token"  
+                       [ngClass]="{ 'is-invalid': submitted() && f.refresh_token.errors }"/>
+                @if (submitted() && f.refresh_token.errors) {
+                  <div class="invalid-feedback">
+                    @if (f.refresh_token.errors.required) {
+                      <div>Ce champ est obligatoire</div>
+                    }
+                  </div>
+                }
+              </div>
+
+              <!-- Champ Expires At -->
+              <div class="form-group col-sm-12 mb-2">
+                <label  for="expires_at">Expires At <span class="text-danger">*</span></label>
+                <input id="expires_at" class="form-control" 
+                       type="text" 
+                       formControlName="expires_at" 
+                       placeholder="Expires At"  
+                       [ngClass]="{ 'is-invalid': submitted() && f.expires_at.errors }"/>
+                @if (submitted() && f.expires_at.errors) {
+                  <div class="invalid-feedback">
+                    @if (f.expires_at.errors.required) {
+                      <div>Ce champ est obligatoire</div>
+                    }
+                  </div>
+                }
+              </div>
+      </form>
+    </div>
+        <!-- Footer -->
+    <div class="modal-footer border-0 pt-0">
+  <button type="button" class="btn btn-outline-secondary px-4" (click)="activeModal.close()">
+    Annuler
+  </button>
+  <button type="button" class="btn btn-primary px-4" [disabled]="
+      loading_add_social_accounts() ||
+      loading_get_details_add_social_accounts_form()
+    " (click)="form_add_social_accounts.ngSubmit.emit()">
+    @if(loading_add_social_accounts()){
+      <span>
+      <i class="bi bi-hourglass-split me-1"></i> Enregistrement...
+      </span>
+    }
+    @if(!loading_add_social_accounts()){
+    <span>
+      <i class="bi bi-check-circle me-1"></i> Enregistrer
+    </span>
+  }
+  </button>
+</div>

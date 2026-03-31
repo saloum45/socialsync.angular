@@ -1,0 +1,1779 @@
+{
+    "projectName": "projet1.angular",
+    "decription": "Fichier de configuration de Taf",
+    "taf_base_url": "http:\/\/localhost:8000\/api\/",
+    "les_modules": [
+        {
+            "module": "home",
+            "les_tables": [
+                {
+                    "table": "entreprises",
+                    "description": [
+                        "id",
+                        "nom",
+                        "adresse",
+                        "telephone"
+                    ],
+                    "table_descriptions": {
+                        "table_name": "entreprises",
+                        "cle_primaire": {
+                            "Field": "id",
+                            "Type": "bigint(20) unsigned",
+                            "Null": "NO",
+                            "Key": "PRI",
+                            "Default": null,
+                            "Extra": "auto_increment",
+                            "explications": ""
+                        },
+                        "les_based_table_name": [
+                            "entreprises"
+                        ],
+                        "les_referenced_table": [],
+                        "les_colonnes": [
+                            {
+                                "Field": "id",
+                                "Type": "bigint(20) unsigned",
+                                "Null": "NO",
+                                "Key": "PRI",
+                                "Default": null,
+                                "Extra": "auto_increment",
+                                "explications": ""
+                            },
+                            {
+                                "Field": "nom",
+                                "Type": "varchar(255)",
+                                "Null": "NO",
+                                "Key": "",
+                                "Default": null,
+                                "Extra": "",
+                                "explications": ""
+                            },
+                            {
+                                "Field": "adresse",
+                                "Type": "varchar(255)",
+                                "Null": "NO",
+                                "Key": "",
+                                "Default": null,
+                                "Extra": "",
+                                "explications": ""
+                            },
+                            {
+                                "Field": "telephone",
+                                "Type": "varchar(255)",
+                                "Null": "NO",
+                                "Key": "",
+                                "Default": null,
+                                "Extra": "",
+                                "explications": ""
+                            }
+                        ]
+                    },
+                    "les_types": [
+                        "add",
+                        "edit",
+                        "list",
+                        "details"
+                    ]
+                },
+                {
+                    "table": "post_publications",
+                    "description": [
+                        "id",
+                        "id_entreprise",
+                        "id_user",
+                        "post_id",
+                        "id_social_account",
+                        "platform_post_id",
+                        "status",
+                        "published_at"
+                    ],
+                    "table_descriptions": {
+                        "table_name": "post_publications",
+                        "cle_primaire": {
+                            "Field": "id",
+                            "Type": "bigint(20) unsigned",
+                            "Null": "NO",
+                            "Key": "PRI",
+                            "Default": null,
+                            "Extra": "auto_increment",
+                            "explications": ""
+                        },
+                        "les_based_table_name": [
+                            "post_publications",
+                            "entreprises",
+                            "users",
+                            "social_accounts"
+                        ],
+                        "les_referenced_table": [
+                            "entreprises",
+                            "users",
+                            "social_accounts"
+                        ],
+                        "les_colonnes": [
+                            {
+                                "Field": "id",
+                                "Type": "bigint(20) unsigned",
+                                "Null": "NO",
+                                "Key": "PRI",
+                                "Default": null,
+                                "Extra": "auto_increment",
+                                "explications": ""
+                            },
+                            {
+                                "Field": "id_entreprise",
+                                "Type": "bigint(20) unsigned",
+                                "Null": "NO",
+                                "Key": "MUL",
+                                "Default": null,
+                                "Extra": "",
+                                "explications": "clé étrangère liée à la colonne id de la table entreprises",
+                                "table": {
+                                    "TABLE_NAME": "post_publications",
+                                    "COLUMN_NAME": "id_entreprise",
+                                    "REFERENCED_TABLE_NAME": "entreprises",
+                                    "REFERENCED_COLUMN_NAME": "id"
+                                },
+                                "table_existant": false,
+                                "referenced_table": {
+                                    "table_name": "entreprises",
+                                    "cle_primaire": {
+                                        "Field": "id",
+                                        "Type": "bigint(20) unsigned",
+                                        "Null": "NO",
+                                        "Key": "PRI",
+                                        "Default": null,
+                                        "Extra": "auto_increment",
+                                        "explications": ""
+                                    },
+                                    "les_based_table_name": [
+                                        "post_publications",
+                                        "entreprises"
+                                    ],
+                                    "les_referenced_table": [],
+                                    "les_colonnes": [
+                                        {
+                                            "Field": "id",
+                                            "Type": "bigint(20) unsigned",
+                                            "Null": "NO",
+                                            "Key": "PRI",
+                                            "Default": null,
+                                            "Extra": "auto_increment",
+                                            "explications": ""
+                                        },
+                                        {
+                                            "Field": "nom",
+                                            "Type": "varchar(255)",
+                                            "Null": "NO",
+                                            "Key": "",
+                                            "Default": null,
+                                            "Extra": "",
+                                            "explications": ""
+                                        },
+                                        {
+                                            "Field": "adresse",
+                                            "Type": "varchar(255)",
+                                            "Null": "NO",
+                                            "Key": "",
+                                            "Default": null,
+                                            "Extra": "",
+                                            "explications": ""
+                                        },
+                                        {
+                                            "Field": "telephone",
+                                            "Type": "varchar(255)",
+                                            "Null": "NO",
+                                            "Key": "",
+                                            "Default": null,
+                                            "Extra": "",
+                                            "explications": ""
+                                        },
+                                        {
+                                            "Field": "created_at",
+                                            "Type": "timestamp",
+                                            "Null": "YES",
+                                            "Key": "",
+                                            "Default": null,
+                                            "Extra": "",
+                                            "explications": ""
+                                        },
+                                        {
+                                            "Field": "updated_at",
+                                            "Type": "timestamp",
+                                            "Null": "YES",
+                                            "Key": "",
+                                            "Default": null,
+                                            "Extra": "",
+                                            "explications": ""
+                                        }
+                                    ]
+                                }
+                            },
+                            {
+                                "Field": "id_user",
+                                "Type": "bigint(20) unsigned",
+                                "Null": "NO",
+                                "Key": "MUL",
+                                "Default": null,
+                                "Extra": "",
+                                "explications": "clé étrangère liée à la colonne id de la table users",
+                                "table": {
+                                    "TABLE_NAME": "post_publications",
+                                    "COLUMN_NAME": "id_user",
+                                    "REFERENCED_TABLE_NAME": "users",
+                                    "REFERENCED_COLUMN_NAME": "id"
+                                },
+                                "table_existant": false,
+                                "referenced_table": {
+                                    "table_name": "users",
+                                    "cle_primaire": {
+                                        "Field": "id",
+                                        "Type": "bigint(20) unsigned",
+                                        "Null": "NO",
+                                        "Key": "PRI",
+                                        "Default": null,
+                                        "Extra": "auto_increment",
+                                        "explications": ""
+                                    },
+                                    "les_based_table_name": [
+                                        "post_publications",
+                                        "users"
+                                    ],
+                                    "les_referenced_table": [],
+                                    "les_colonnes": [
+                                        {
+                                            "Field": "id",
+                                            "Type": "bigint(20) unsigned",
+                                            "Null": "NO",
+                                            "Key": "PRI",
+                                            "Default": null,
+                                            "Extra": "auto_increment",
+                                            "explications": ""
+                                        },
+                                        {
+                                            "Field": "prenom",
+                                            "Type": "varchar(255)",
+                                            "Null": "NO",
+                                            "Key": "",
+                                            "Default": null,
+                                            "Extra": "",
+                                            "explications": ""
+                                        },
+                                        {
+                                            "Field": "nom",
+                                            "Type": "varchar(255)",
+                                            "Null": "NO",
+                                            "Key": "",
+                                            "Default": null,
+                                            "Extra": "",
+                                            "explications": ""
+                                        },
+                                        {
+                                            "Field": "adresse",
+                                            "Type": "varchar(255)",
+                                            "Null": "NO",
+                                            "Key": "",
+                                            "Default": null,
+                                            "Extra": "",
+                                            "explications": ""
+                                        },
+                                        {
+                                            "Field": "telephone",
+                                            "Type": "varchar(255)",
+                                            "Null": "NO",
+                                            "Key": "",
+                                            "Default": null,
+                                            "Extra": "",
+                                            "explications": ""
+                                        },
+                                        {
+                                            "Field": "email",
+                                            "Type": "varchar(255)",
+                                            "Null": "NO",
+                                            "Key": "",
+                                            "Default": null,
+                                            "Extra": "",
+                                            "explications": ""
+                                        },
+                                        {
+                                            "Field": "password",
+                                            "Type": "varchar(255)",
+                                            "Null": "NO",
+                                            "Key": "",
+                                            "Default": null,
+                                            "Extra": "",
+                                            "explications": ""
+                                        },
+                                        {
+                                            "Field": "created_at",
+                                            "Type": "timestamp",
+                                            "Null": "YES",
+                                            "Key": "",
+                                            "Default": null,
+                                            "Extra": "",
+                                            "explications": ""
+                                        },
+                                        {
+                                            "Field": "updated_at",
+                                            "Type": "timestamp",
+                                            "Null": "YES",
+                                            "Key": "",
+                                            "Default": null,
+                                            "Extra": "",
+                                            "explications": ""
+                                        }
+                                    ]
+                                }
+                            },
+                            {
+                                "Field": "post_id",
+                                "Type": "varchar(255)",
+                                "Null": "NO",
+                                "Key": "",
+                                "Default": null,
+                                "Extra": "",
+                                "explications": ""
+                            },
+                            {
+                                "Field": "id_social_account",
+                                "Type": "bigint(20) unsigned",
+                                "Null": "NO",
+                                "Key": "MUL",
+                                "Default": null,
+                                "Extra": "",
+                                "explications": "clé étrangère liée à la colonne id de la table social_accounts",
+                                "table": {
+                                    "TABLE_NAME": "post_publications",
+                                    "COLUMN_NAME": "id_social_account",
+                                    "REFERENCED_TABLE_NAME": "social_accounts",
+                                    "REFERENCED_COLUMN_NAME": "id"
+                                },
+                                "table_existant": false,
+                                "referenced_table": {
+                                    "table_name": "social_accounts",
+                                    "cle_primaire": {
+                                        "Field": "id",
+                                        "Type": "bigint(20) unsigned",
+                                        "Null": "NO",
+                                        "Key": "PRI",
+                                        "Default": null,
+                                        "Extra": "auto_increment",
+                                        "explications": ""
+                                    },
+                                    "les_based_table_name": [
+                                        "post_publications",
+                                        "social_accounts"
+                                    ],
+                                    "les_referenced_table": [],
+                                    "les_colonnes": [
+                                        {
+                                            "Field": "id",
+                                            "Type": "bigint(20) unsigned",
+                                            "Null": "NO",
+                                            "Key": "PRI",
+                                            "Default": null,
+                                            "Extra": "auto_increment",
+                                            "explications": ""
+                                        },
+                                        {
+                                            "Field": "id_entreprise",
+                                            "Type": "bigint(20) unsigned",
+                                            "Null": "NO",
+                                            "Key": "MUL",
+                                            "Default": null,
+                                            "Extra": "",
+                                            "explications": ""
+                                        },
+                                        {
+                                            "Field": "id_user",
+                                            "Type": "bigint(20) unsigned",
+                                            "Null": "NO",
+                                            "Key": "MUL",
+                                            "Default": null,
+                                            "Extra": "",
+                                            "explications": ""
+                                        },
+                                        {
+                                            "Field": "id_type_social_account",
+                                            "Type": "bigint(20) unsigned",
+                                            "Null": "NO",
+                                            "Key": "MUL",
+                                            "Default": null,
+                                            "Extra": "",
+                                            "explications": ""
+                                        },
+                                        {
+                                            "Field": "account_id",
+                                            "Type": "varchar(255)",
+                                            "Null": "NO",
+                                            "Key": "",
+                                            "Default": null,
+                                            "Extra": "",
+                                            "explications": ""
+                                        },
+                                        {
+                                            "Field": "account_name",
+                                            "Type": "varchar(255)",
+                                            "Null": "NO",
+                                            "Key": "",
+                                            "Default": null,
+                                            "Extra": "",
+                                            "explications": ""
+                                        },
+                                        {
+                                            "Field": "access_token",
+                                            "Type": "varchar(255)",
+                                            "Null": "NO",
+                                            "Key": "",
+                                            "Default": null,
+                                            "Extra": "",
+                                            "explications": ""
+                                        },
+                                        {
+                                            "Field": "refresh_token",
+                                            "Type": "varchar(255)",
+                                            "Null": "NO",
+                                            "Key": "",
+                                            "Default": null,
+                                            "Extra": "",
+                                            "explications": ""
+                                        },
+                                        {
+                                            "Field": "expires_at",
+                                            "Type": "varchar(255)",
+                                            "Null": "NO",
+                                            "Key": "",
+                                            "Default": null,
+                                            "Extra": "",
+                                            "explications": ""
+                                        },
+                                        {
+                                            "Field": "created_at",
+                                            "Type": "timestamp",
+                                            "Null": "YES",
+                                            "Key": "",
+                                            "Default": null,
+                                            "Extra": "",
+                                            "explications": ""
+                                        },
+                                        {
+                                            "Field": "updated_at",
+                                            "Type": "timestamp",
+                                            "Null": "YES",
+                                            "Key": "",
+                                            "Default": null,
+                                            "Extra": "",
+                                            "explications": ""
+                                        }
+                                    ]
+                                }
+                            },
+                            {
+                                "Field": "platform_post_id",
+                                "Type": "varchar(255)",
+                                "Null": "NO",
+                                "Key": "",
+                                "Default": null,
+                                "Extra": "",
+                                "explications": ""
+                            },
+                            {
+                                "Field": "status",
+                                "Type": "enum('pending','published','failed')",
+                                "Null": "NO",
+                                "Key": "",
+                                "Default": null,
+                                "Extra": "",
+                                "explications": ""
+                            },
+                            {
+                                "Field": "published_at",
+                                "Type": "varchar(255)",
+                                "Null": "NO",
+                                "Key": "",
+                                "Default": null,
+                                "Extra": "",
+                                "explications": ""
+                            }
+                        ]
+                    },
+                    "les_types": [
+                        "add",
+                        "edit",
+                        "list",
+                        "details"
+                    ]
+                },
+                {
+                    "table": "posts",
+                    "description": [
+                        "id",
+                        "id_entreprise",
+                        "id_user",
+                        "contenu",
+                        "scheduled_at",
+                        "status",
+                        "media_url",
+                        "media"
+                    ],
+                    "table_descriptions": {
+                        "table_name": "posts",
+                        "cle_primaire": {
+                            "Field": "id",
+                            "Type": "bigint(20) unsigned",
+                            "Null": "NO",
+                            "Key": "PRI",
+                            "Default": null,
+                            "Extra": "auto_increment",
+                            "explications": ""
+                        },
+                        "les_based_table_name": [
+                            "posts",
+                            "entreprises",
+                            "users"
+                        ],
+                        "les_referenced_table": [
+                            "entreprises",
+                            "users"
+                        ],
+                        "les_colonnes": [
+                            {
+                                "Field": "id",
+                                "Type": "bigint(20) unsigned",
+                                "Null": "NO",
+                                "Key": "PRI",
+                                "Default": null,
+                                "Extra": "auto_increment",
+                                "explications": ""
+                            },
+                            {
+                                "Field": "id_entreprise",
+                                "Type": "bigint(20) unsigned",
+                                "Null": "NO",
+                                "Key": "MUL",
+                                "Default": null,
+                                "Extra": "",
+                                "explications": "clé étrangère liée à la colonne id de la table entreprises",
+                                "table": {
+                                    "TABLE_NAME": "posts",
+                                    "COLUMN_NAME": "id_entreprise",
+                                    "REFERENCED_TABLE_NAME": "entreprises",
+                                    "REFERENCED_COLUMN_NAME": "id"
+                                },
+                                "table_existant": false,
+                                "referenced_table": {
+                                    "table_name": "entreprises",
+                                    "cle_primaire": {
+                                        "Field": "id",
+                                        "Type": "bigint(20) unsigned",
+                                        "Null": "NO",
+                                        "Key": "PRI",
+                                        "Default": null,
+                                        "Extra": "auto_increment",
+                                        "explications": ""
+                                    },
+                                    "les_based_table_name": [
+                                        "posts",
+                                        "entreprises"
+                                    ],
+                                    "les_referenced_table": [],
+                                    "les_colonnes": [
+                                        {
+                                            "Field": "id",
+                                            "Type": "bigint(20) unsigned",
+                                            "Null": "NO",
+                                            "Key": "PRI",
+                                            "Default": null,
+                                            "Extra": "auto_increment",
+                                            "explications": ""
+                                        },
+                                        {
+                                            "Field": "nom",
+                                            "Type": "varchar(255)",
+                                            "Null": "NO",
+                                            "Key": "",
+                                            "Default": null,
+                                            "Extra": "",
+                                            "explications": ""
+                                        },
+                                        {
+                                            "Field": "adresse",
+                                            "Type": "varchar(255)",
+                                            "Null": "NO",
+                                            "Key": "",
+                                            "Default": null,
+                                            "Extra": "",
+                                            "explications": ""
+                                        },
+                                        {
+                                            "Field": "telephone",
+                                            "Type": "varchar(255)",
+                                            "Null": "NO",
+                                            "Key": "",
+                                            "Default": null,
+                                            "Extra": "",
+                                            "explications": ""
+                                        },
+                                        {
+                                            "Field": "created_at",
+                                            "Type": "timestamp",
+                                            "Null": "YES",
+                                            "Key": "",
+                                            "Default": null,
+                                            "Extra": "",
+                                            "explications": ""
+                                        },
+                                        {
+                                            "Field": "updated_at",
+                                            "Type": "timestamp",
+                                            "Null": "YES",
+                                            "Key": "",
+                                            "Default": null,
+                                            "Extra": "",
+                                            "explications": ""
+                                        }
+                                    ]
+                                }
+                            },
+                            {
+                                "Field": "id_user",
+                                "Type": "bigint(20) unsigned",
+                                "Null": "NO",
+                                "Key": "MUL",
+                                "Default": null,
+                                "Extra": "",
+                                "explications": "clé étrangère liée à la colonne id de la table users",
+                                "table": {
+                                    "TABLE_NAME": "posts",
+                                    "COLUMN_NAME": "id_user",
+                                    "REFERENCED_TABLE_NAME": "users",
+                                    "REFERENCED_COLUMN_NAME": "id"
+                                },
+                                "table_existant": false,
+                                "referenced_table": {
+                                    "table_name": "users",
+                                    "cle_primaire": {
+                                        "Field": "id",
+                                        "Type": "bigint(20) unsigned",
+                                        "Null": "NO",
+                                        "Key": "PRI",
+                                        "Default": null,
+                                        "Extra": "auto_increment",
+                                        "explications": ""
+                                    },
+                                    "les_based_table_name": [
+                                        "posts",
+                                        "users"
+                                    ],
+                                    "les_referenced_table": [],
+                                    "les_colonnes": [
+                                        {
+                                            "Field": "id",
+                                            "Type": "bigint(20) unsigned",
+                                            "Null": "NO",
+                                            "Key": "PRI",
+                                            "Default": null,
+                                            "Extra": "auto_increment",
+                                            "explications": ""
+                                        },
+                                        {
+                                            "Field": "prenom",
+                                            "Type": "varchar(255)",
+                                            "Null": "NO",
+                                            "Key": "",
+                                            "Default": null,
+                                            "Extra": "",
+                                            "explications": ""
+                                        },
+                                        {
+                                            "Field": "nom",
+                                            "Type": "varchar(255)",
+                                            "Null": "NO",
+                                            "Key": "",
+                                            "Default": null,
+                                            "Extra": "",
+                                            "explications": ""
+                                        },
+                                        {
+                                            "Field": "adresse",
+                                            "Type": "varchar(255)",
+                                            "Null": "NO",
+                                            "Key": "",
+                                            "Default": null,
+                                            "Extra": "",
+                                            "explications": ""
+                                        },
+                                        {
+                                            "Field": "telephone",
+                                            "Type": "varchar(255)",
+                                            "Null": "NO",
+                                            "Key": "",
+                                            "Default": null,
+                                            "Extra": "",
+                                            "explications": ""
+                                        },
+                                        {
+                                            "Field": "email",
+                                            "Type": "varchar(255)",
+                                            "Null": "NO",
+                                            "Key": "",
+                                            "Default": null,
+                                            "Extra": "",
+                                            "explications": ""
+                                        },
+                                        {
+                                            "Field": "password",
+                                            "Type": "varchar(255)",
+                                            "Null": "NO",
+                                            "Key": "",
+                                            "Default": null,
+                                            "Extra": "",
+                                            "explications": ""
+                                        },
+                                        {
+                                            "Field": "created_at",
+                                            "Type": "timestamp",
+                                            "Null": "YES",
+                                            "Key": "",
+                                            "Default": null,
+                                            "Extra": "",
+                                            "explications": ""
+                                        },
+                                        {
+                                            "Field": "updated_at",
+                                            "Type": "timestamp",
+                                            "Null": "YES",
+                                            "Key": "",
+                                            "Default": null,
+                                            "Extra": "",
+                                            "explications": ""
+                                        }
+                                    ]
+                                }
+                            },
+                            {
+                                "Field": "contenu",
+                                "Type": "varchar(255)",
+                                "Null": "NO",
+                                "Key": "",
+                                "Default": null,
+                                "Extra": "",
+                                "explications": ""
+                            },
+                            {
+                                "Field": "scheduled_at",
+                                "Type": "varchar(255)",
+                                "Null": "NO",
+                                "Key": "",
+                                "Default": null,
+                                "Extra": "",
+                                "explications": ""
+                            },
+                            {
+                                "Field": "status",
+                                "Type": "enum('pending','published','failed')",
+                                "Null": "NO",
+                                "Key": "",
+                                "Default": null,
+                                "Extra": "",
+                                "explications": ""
+                            },
+                            {
+                                "Field": "media_url",
+                                "Type": "varchar(255)",
+                                "Null": "NO",
+                                "Key": "",
+                                "Default": null,
+                                "Extra": "",
+                                "explications": ""
+                            },
+                            {
+                                "Field": "media",
+                                "Type": "varchar(255)",
+                                "Null": "NO",
+                                "Key": "",
+                                "Default": null,
+                                "Extra": "",
+                                "explications": ""
+                            }
+                        ]
+                    },
+                    "les_types": [
+                        "add",
+                        "edit",
+                        "list",
+                        "details"
+                    ]
+                },
+                {
+                    "table": "privileges",
+                    "description": [
+                        "id",
+                        "libelle",
+                        "description"
+                    ],
+                    "table_descriptions": {
+                        "table_name": "privileges",
+                        "cle_primaire": {
+                            "Field": "id",
+                            "Type": "bigint(20) unsigned",
+                            "Null": "NO",
+                            "Key": "PRI",
+                            "Default": null,
+                            "Extra": "auto_increment",
+                            "explications": ""
+                        },
+                        "les_based_table_name": [
+                            "privileges"
+                        ],
+                        "les_referenced_table": [],
+                        "les_colonnes": [
+                            {
+                                "Field": "id",
+                                "Type": "bigint(20) unsigned",
+                                "Null": "NO",
+                                "Key": "PRI",
+                                "Default": null,
+                                "Extra": "auto_increment",
+                                "explications": ""
+                            },
+                            {
+                                "Field": "libelle",
+                                "Type": "varchar(255)",
+                                "Null": "NO",
+                                "Key": "",
+                                "Default": null,
+                                "Extra": "",
+                                "explications": ""
+                            },
+                            {
+                                "Field": "description",
+                                "Type": "varchar(255)",
+                                "Null": "NO",
+                                "Key": "",
+                                "Default": null,
+                                "Extra": "",
+                                "explications": ""
+                            }
+                        ]
+                    },
+                    "les_types": [
+                        "add",
+                        "edit",
+                        "list",
+                        "details"
+                    ]
+                },
+                {
+                    "table": "social_accounts",
+                    "description": [
+                        "id",
+                        "id_entreprise",
+                        "id_user",
+                        "id_type_social_account",
+                        "account_id",
+                        "account_name",
+                        "access_token",
+                        "refresh_token",
+                        "expires_at"
+                    ],
+                    "table_descriptions": {
+                        "table_name": "social_accounts",
+                        "cle_primaire": {
+                            "Field": "id",
+                            "Type": "bigint(20) unsigned",
+                            "Null": "NO",
+                            "Key": "PRI",
+                            "Default": null,
+                            "Extra": "auto_increment",
+                            "explications": ""
+                        },
+                        "les_based_table_name": [
+                            "social_accounts",
+                            "entreprises",
+                            "users",
+                            "type_social_accounts"
+                        ],
+                        "les_referenced_table": [
+                            "entreprises",
+                            "users",
+                            "type_social_accounts"
+                        ],
+                        "les_colonnes": [
+                            {
+                                "Field": "id",
+                                "Type": "bigint(20) unsigned",
+                                "Null": "NO",
+                                "Key": "PRI",
+                                "Default": null,
+                                "Extra": "auto_increment",
+                                "explications": ""
+                            },
+                            {
+                                "Field": "id_entreprise",
+                                "Type": "bigint(20) unsigned",
+                                "Null": "NO",
+                                "Key": "MUL",
+                                "Default": null,
+                                "Extra": "",
+                                "explications": "clé étrangère liée à la colonne id de la table entreprises",
+                                "table": {
+                                    "TABLE_NAME": "social_accounts",
+                                    "COLUMN_NAME": "id_entreprise",
+                                    "REFERENCED_TABLE_NAME": "entreprises",
+                                    "REFERENCED_COLUMN_NAME": "id"
+                                },
+                                "table_existant": false,
+                                "referenced_table": {
+                                    "table_name": "entreprises",
+                                    "cle_primaire": {
+                                        "Field": "id",
+                                        "Type": "bigint(20) unsigned",
+                                        "Null": "NO",
+                                        "Key": "PRI",
+                                        "Default": null,
+                                        "Extra": "auto_increment",
+                                        "explications": ""
+                                    },
+                                    "les_based_table_name": [
+                                        "social_accounts",
+                                        "entreprises"
+                                    ],
+                                    "les_referenced_table": [],
+                                    "les_colonnes": [
+                                        {
+                                            "Field": "id",
+                                            "Type": "bigint(20) unsigned",
+                                            "Null": "NO",
+                                            "Key": "PRI",
+                                            "Default": null,
+                                            "Extra": "auto_increment",
+                                            "explications": ""
+                                        },
+                                        {
+                                            "Field": "nom",
+                                            "Type": "varchar(255)",
+                                            "Null": "NO",
+                                            "Key": "",
+                                            "Default": null,
+                                            "Extra": "",
+                                            "explications": ""
+                                        },
+                                        {
+                                            "Field": "adresse",
+                                            "Type": "varchar(255)",
+                                            "Null": "NO",
+                                            "Key": "",
+                                            "Default": null,
+                                            "Extra": "",
+                                            "explications": ""
+                                        },
+                                        {
+                                            "Field": "telephone",
+                                            "Type": "varchar(255)",
+                                            "Null": "NO",
+                                            "Key": "",
+                                            "Default": null,
+                                            "Extra": "",
+                                            "explications": ""
+                                        },
+                                        {
+                                            "Field": "created_at",
+                                            "Type": "timestamp",
+                                            "Null": "YES",
+                                            "Key": "",
+                                            "Default": null,
+                                            "Extra": "",
+                                            "explications": ""
+                                        },
+                                        {
+                                            "Field": "updated_at",
+                                            "Type": "timestamp",
+                                            "Null": "YES",
+                                            "Key": "",
+                                            "Default": null,
+                                            "Extra": "",
+                                            "explications": ""
+                                        }
+                                    ]
+                                }
+                            },
+                            {
+                                "Field": "id_user",
+                                "Type": "bigint(20) unsigned",
+                                "Null": "NO",
+                                "Key": "MUL",
+                                "Default": null,
+                                "Extra": "",
+                                "explications": "clé étrangère liée à la colonne id de la table users",
+                                "table": {
+                                    "TABLE_NAME": "social_accounts",
+                                    "COLUMN_NAME": "id_user",
+                                    "REFERENCED_TABLE_NAME": "users",
+                                    "REFERENCED_COLUMN_NAME": "id"
+                                },
+                                "table_existant": false,
+                                "referenced_table": {
+                                    "table_name": "users",
+                                    "cle_primaire": {
+                                        "Field": "id",
+                                        "Type": "bigint(20) unsigned",
+                                        "Null": "NO",
+                                        "Key": "PRI",
+                                        "Default": null,
+                                        "Extra": "auto_increment",
+                                        "explications": ""
+                                    },
+                                    "les_based_table_name": [
+                                        "social_accounts",
+                                        "users"
+                                    ],
+                                    "les_referenced_table": [],
+                                    "les_colonnes": [
+                                        {
+                                            "Field": "id",
+                                            "Type": "bigint(20) unsigned",
+                                            "Null": "NO",
+                                            "Key": "PRI",
+                                            "Default": null,
+                                            "Extra": "auto_increment",
+                                            "explications": ""
+                                        },
+                                        {
+                                            "Field": "prenom",
+                                            "Type": "varchar(255)",
+                                            "Null": "NO",
+                                            "Key": "",
+                                            "Default": null,
+                                            "Extra": "",
+                                            "explications": ""
+                                        },
+                                        {
+                                            "Field": "nom",
+                                            "Type": "varchar(255)",
+                                            "Null": "NO",
+                                            "Key": "",
+                                            "Default": null,
+                                            "Extra": "",
+                                            "explications": ""
+                                        },
+                                        {
+                                            "Field": "adresse",
+                                            "Type": "varchar(255)",
+                                            "Null": "NO",
+                                            "Key": "",
+                                            "Default": null,
+                                            "Extra": "",
+                                            "explications": ""
+                                        },
+                                        {
+                                            "Field": "telephone",
+                                            "Type": "varchar(255)",
+                                            "Null": "NO",
+                                            "Key": "",
+                                            "Default": null,
+                                            "Extra": "",
+                                            "explications": ""
+                                        },
+                                        {
+                                            "Field": "email",
+                                            "Type": "varchar(255)",
+                                            "Null": "NO",
+                                            "Key": "",
+                                            "Default": null,
+                                            "Extra": "",
+                                            "explications": ""
+                                        },
+                                        {
+                                            "Field": "password",
+                                            "Type": "varchar(255)",
+                                            "Null": "NO",
+                                            "Key": "",
+                                            "Default": null,
+                                            "Extra": "",
+                                            "explications": ""
+                                        },
+                                        {
+                                            "Field": "created_at",
+                                            "Type": "timestamp",
+                                            "Null": "YES",
+                                            "Key": "",
+                                            "Default": null,
+                                            "Extra": "",
+                                            "explications": ""
+                                        },
+                                        {
+                                            "Field": "updated_at",
+                                            "Type": "timestamp",
+                                            "Null": "YES",
+                                            "Key": "",
+                                            "Default": null,
+                                            "Extra": "",
+                                            "explications": ""
+                                        }
+                                    ]
+                                }
+                            },
+                            {
+                                "Field": "id_type_social_account",
+                                "Type": "bigint(20) unsigned",
+                                "Null": "NO",
+                                "Key": "MUL",
+                                "Default": null,
+                                "Extra": "",
+                                "explications": "clé étrangère liée à la colonne id de la table type_social_accounts",
+                                "table": {
+                                    "TABLE_NAME": "social_accounts",
+                                    "COLUMN_NAME": "id_type_social_account",
+                                    "REFERENCED_TABLE_NAME": "type_social_accounts",
+                                    "REFERENCED_COLUMN_NAME": "id"
+                                },
+                                "table_existant": false,
+                                "referenced_table": {
+                                    "table_name": "type_social_accounts",
+                                    "cle_primaire": {
+                                        "Field": "id",
+                                        "Type": "bigint(20) unsigned",
+                                        "Null": "NO",
+                                        "Key": "PRI",
+                                        "Default": null,
+                                        "Extra": "auto_increment",
+                                        "explications": ""
+                                    },
+                                    "les_based_table_name": [
+                                        "social_accounts",
+                                        "type_social_accounts"
+                                    ],
+                                    "les_referenced_table": [],
+                                    "les_colonnes": [
+                                        {
+                                            "Field": "id",
+                                            "Type": "bigint(20) unsigned",
+                                            "Null": "NO",
+                                            "Key": "PRI",
+                                            "Default": null,
+                                            "Extra": "auto_increment",
+                                            "explications": ""
+                                        },
+                                        {
+                                            "Field": "libelle",
+                                            "Type": "varchar(255)",
+                                            "Null": "NO",
+                                            "Key": "",
+                                            "Default": null,
+                                            "Extra": "",
+                                            "explications": ""
+                                        },
+                                        {
+                                            "Field": "logo",
+                                            "Type": "varchar(255)",
+                                            "Null": "NO",
+                                            "Key": "",
+                                            "Default": null,
+                                            "Extra": "",
+                                            "explications": ""
+                                        },
+                                        {
+                                            "Field": "lien",
+                                            "Type": "varchar(255)",
+                                            "Null": "NO",
+                                            "Key": "",
+                                            "Default": null,
+                                            "Extra": "",
+                                            "explications": ""
+                                        },
+                                        {
+                                            "Field": "created_at",
+                                            "Type": "timestamp",
+                                            "Null": "YES",
+                                            "Key": "",
+                                            "Default": null,
+                                            "Extra": "",
+                                            "explications": ""
+                                        },
+                                        {
+                                            "Field": "updated_at",
+                                            "Type": "timestamp",
+                                            "Null": "YES",
+                                            "Key": "",
+                                            "Default": null,
+                                            "Extra": "",
+                                            "explications": ""
+                                        }
+                                    ]
+                                }
+                            },
+                            {
+                                "Field": "account_id",
+                                "Type": "varchar(255)",
+                                "Null": "NO",
+                                "Key": "",
+                                "Default": null,
+                                "Extra": "",
+                                "explications": ""
+                            },
+                            {
+                                "Field": "account_name",
+                                "Type": "varchar(255)",
+                                "Null": "NO",
+                                "Key": "",
+                                "Default": null,
+                                "Extra": "",
+                                "explications": ""
+                            },
+                            {
+                                "Field": "access_token",
+                                "Type": "varchar(255)",
+                                "Null": "NO",
+                                "Key": "",
+                                "Default": null,
+                                "Extra": "",
+                                "explications": ""
+                            },
+                            {
+                                "Field": "refresh_token",
+                                "Type": "varchar(255)",
+                                "Null": "NO",
+                                "Key": "",
+                                "Default": null,
+                                "Extra": "",
+                                "explications": ""
+                            },
+                            {
+                                "Field": "expires_at",
+                                "Type": "varchar(255)",
+                                "Null": "NO",
+                                "Key": "",
+                                "Default": null,
+                                "Extra": "",
+                                "explications": ""
+                            }
+                        ]
+                    },
+                    "les_types": [
+                        "add",
+                        "edit",
+                        "list",
+                        "details"
+                    ]
+                },
+                {
+                    "table": "type_social_accounts",
+                    "description": [
+                        "id",
+                        "libelle",
+                        "logo",
+                        "lien"
+                    ],
+                    "table_descriptions": {
+                        "table_name": "type_social_accounts",
+                        "cle_primaire": {
+                            "Field": "id",
+                            "Type": "bigint(20) unsigned",
+                            "Null": "NO",
+                            "Key": "PRI",
+                            "Default": null,
+                            "Extra": "auto_increment",
+                            "explications": ""
+                        },
+                        "les_based_table_name": [
+                            "type_social_accounts"
+                        ],
+                        "les_referenced_table": [],
+                        "les_colonnes": [
+                            {
+                                "Field": "id",
+                                "Type": "bigint(20) unsigned",
+                                "Null": "NO",
+                                "Key": "PRI",
+                                "Default": null,
+                                "Extra": "auto_increment",
+                                "explications": ""
+                            },
+                            {
+                                "Field": "libelle",
+                                "Type": "varchar(255)",
+                                "Null": "NO",
+                                "Key": "",
+                                "Default": null,
+                                "Extra": "",
+                                "explications": ""
+                            },
+                            {
+                                "Field": "logo",
+                                "Type": "varchar(255)",
+                                "Null": "NO",
+                                "Key": "",
+                                "Default": null,
+                                "Extra": "",
+                                "explications": ""
+                            },
+                            {
+                                "Field": "lien",
+                                "Type": "varchar(255)",
+                                "Null": "NO",
+                                "Key": "",
+                                "Default": null,
+                                "Extra": "",
+                                "explications": ""
+                            }
+                        ]
+                    },
+                    "les_types": [
+                        "add",
+                        "edit",
+                        "list",
+                        "details"
+                    ]
+                },
+                {
+                    "table": "user_privileges",
+                    "description": [
+                        "id",
+                        "id_user",
+                        "id_privilege",
+                        "id_entreprise"
+                    ],
+                    "table_descriptions": {
+                        "table_name": "user_privileges",
+                        "cle_primaire": {
+                            "Field": "id",
+                            "Type": "bigint(20) unsigned",
+                            "Null": "NO",
+                            "Key": "PRI",
+                            "Default": null,
+                            "Extra": "auto_increment",
+                            "explications": ""
+                        },
+                        "les_based_table_name": [
+                            "user_privileges",
+                            "users",
+                            "privileges",
+                            "entreprises"
+                        ],
+                        "les_referenced_table": [
+                            "users",
+                            "privileges",
+                            "entreprises"
+                        ],
+                        "les_colonnes": [
+                            {
+                                "Field": "id",
+                                "Type": "bigint(20) unsigned",
+                                "Null": "NO",
+                                "Key": "PRI",
+                                "Default": null,
+                                "Extra": "auto_increment",
+                                "explications": ""
+                            },
+                            {
+                                "Field": "id_user",
+                                "Type": "bigint(20) unsigned",
+                                "Null": "NO",
+                                "Key": "MUL",
+                                "Default": null,
+                                "Extra": "",
+                                "explications": "clé étrangère liée à la colonne id de la table users",
+                                "table": {
+                                    "TABLE_NAME": "user_privileges",
+                                    "COLUMN_NAME": "id_user",
+                                    "REFERENCED_TABLE_NAME": "users",
+                                    "REFERENCED_COLUMN_NAME": "id"
+                                },
+                                "table_existant": false,
+                                "referenced_table": {
+                                    "table_name": "users",
+                                    "cle_primaire": {
+                                        "Field": "id",
+                                        "Type": "bigint(20) unsigned",
+                                        "Null": "NO",
+                                        "Key": "PRI",
+                                        "Default": null,
+                                        "Extra": "auto_increment",
+                                        "explications": ""
+                                    },
+                                    "les_based_table_name": [
+                                        "user_privileges",
+                                        "users"
+                                    ],
+                                    "les_referenced_table": [],
+                                    "les_colonnes": [
+                                        {
+                                            "Field": "id",
+                                            "Type": "bigint(20) unsigned",
+                                            "Null": "NO",
+                                            "Key": "PRI",
+                                            "Default": null,
+                                            "Extra": "auto_increment",
+                                            "explications": ""
+                                        },
+                                        {
+                                            "Field": "prenom",
+                                            "Type": "varchar(255)",
+                                            "Null": "NO",
+                                            "Key": "",
+                                            "Default": null,
+                                            "Extra": "",
+                                            "explications": ""
+                                        },
+                                        {
+                                            "Field": "nom",
+                                            "Type": "varchar(255)",
+                                            "Null": "NO",
+                                            "Key": "",
+                                            "Default": null,
+                                            "Extra": "",
+                                            "explications": ""
+                                        },
+                                        {
+                                            "Field": "adresse",
+                                            "Type": "varchar(255)",
+                                            "Null": "NO",
+                                            "Key": "",
+                                            "Default": null,
+                                            "Extra": "",
+                                            "explications": ""
+                                        },
+                                        {
+                                            "Field": "telephone",
+                                            "Type": "varchar(255)",
+                                            "Null": "NO",
+                                            "Key": "",
+                                            "Default": null,
+                                            "Extra": "",
+                                            "explications": ""
+                                        },
+                                        {
+                                            "Field": "email",
+                                            "Type": "varchar(255)",
+                                            "Null": "NO",
+                                            "Key": "",
+                                            "Default": null,
+                                            "Extra": "",
+                                            "explications": ""
+                                        },
+                                        {
+                                            "Field": "password",
+                                            "Type": "varchar(255)",
+                                            "Null": "NO",
+                                            "Key": "",
+                                            "Default": null,
+                                            "Extra": "",
+                                            "explications": ""
+                                        },
+                                        {
+                                            "Field": "created_at",
+                                            "Type": "timestamp",
+                                            "Null": "YES",
+                                            "Key": "",
+                                            "Default": null,
+                                            "Extra": "",
+                                            "explications": ""
+                                        },
+                                        {
+                                            "Field": "updated_at",
+                                            "Type": "timestamp",
+                                            "Null": "YES",
+                                            "Key": "",
+                                            "Default": null,
+                                            "Extra": "",
+                                            "explications": ""
+                                        }
+                                    ]
+                                }
+                            },
+                            {
+                                "Field": "id_privilege",
+                                "Type": "bigint(20) unsigned",
+                                "Null": "NO",
+                                "Key": "MUL",
+                                "Default": null,
+                                "Extra": "",
+                                "explications": "clé étrangère liée à la colonne id de la table privileges",
+                                "table": {
+                                    "TABLE_NAME": "user_privileges",
+                                    "COLUMN_NAME": "id_privilege",
+                                    "REFERENCED_TABLE_NAME": "privileges",
+                                    "REFERENCED_COLUMN_NAME": "id"
+                                },
+                                "table_existant": false,
+                                "referenced_table": {
+                                    "table_name": "privileges",
+                                    "cle_primaire": {
+                                        "Field": "id",
+                                        "Type": "bigint(20) unsigned",
+                                        "Null": "NO",
+                                        "Key": "PRI",
+                                        "Default": null,
+                                        "Extra": "auto_increment",
+                                        "explications": ""
+                                    },
+                                    "les_based_table_name": [
+                                        "user_privileges",
+                                        "privileges"
+                                    ],
+                                    "les_referenced_table": [],
+                                    "les_colonnes": [
+                                        {
+                                            "Field": "id",
+                                            "Type": "bigint(20) unsigned",
+                                            "Null": "NO",
+                                            "Key": "PRI",
+                                            "Default": null,
+                                            "Extra": "auto_increment",
+                                            "explications": ""
+                                        },
+                                        {
+                                            "Field": "libelle",
+                                            "Type": "varchar(255)",
+                                            "Null": "NO",
+                                            "Key": "",
+                                            "Default": null,
+                                            "Extra": "",
+                                            "explications": ""
+                                        },
+                                        {
+                                            "Field": "description",
+                                            "Type": "varchar(255)",
+                                            "Null": "NO",
+                                            "Key": "",
+                                            "Default": null,
+                                            "Extra": "",
+                                            "explications": ""
+                                        },
+                                        {
+                                            "Field": "created_at",
+                                            "Type": "timestamp",
+                                            "Null": "YES",
+                                            "Key": "",
+                                            "Default": null,
+                                            "Extra": "",
+                                            "explications": ""
+                                        },
+                                        {
+                                            "Field": "updated_at",
+                                            "Type": "timestamp",
+                                            "Null": "YES",
+                                            "Key": "",
+                                            "Default": null,
+                                            "Extra": "",
+                                            "explications": ""
+                                        }
+                                    ]
+                                }
+                            },
+                            {
+                                "Field": "id_entreprise",
+                                "Type": "bigint(20) unsigned",
+                                "Null": "NO",
+                                "Key": "MUL",
+                                "Default": null,
+                                "Extra": "",
+                                "explications": "clé étrangère liée à la colonne id de la table entreprises",
+                                "table": {
+                                    "TABLE_NAME": "user_privileges",
+                                    "COLUMN_NAME": "id_entreprise",
+                                    "REFERENCED_TABLE_NAME": "entreprises",
+                                    "REFERENCED_COLUMN_NAME": "id"
+                                },
+                                "table_existant": false,
+                                "referenced_table": {
+                                    "table_name": "entreprises",
+                                    "cle_primaire": {
+                                        "Field": "id",
+                                        "Type": "bigint(20) unsigned",
+                                        "Null": "NO",
+                                        "Key": "PRI",
+                                        "Default": null,
+                                        "Extra": "auto_increment",
+                                        "explications": ""
+                                    },
+                                    "les_based_table_name": [
+                                        "user_privileges",
+                                        "entreprises"
+                                    ],
+                                    "les_referenced_table": [],
+                                    "les_colonnes": [
+                                        {
+                                            "Field": "id",
+                                            "Type": "bigint(20) unsigned",
+                                            "Null": "NO",
+                                            "Key": "PRI",
+                                            "Default": null,
+                                            "Extra": "auto_increment",
+                                            "explications": ""
+                                        },
+                                        {
+                                            "Field": "nom",
+                                            "Type": "varchar(255)",
+                                            "Null": "NO",
+                                            "Key": "",
+                                            "Default": null,
+                                            "Extra": "",
+                                            "explications": ""
+                                        },
+                                        {
+                                            "Field": "adresse",
+                                            "Type": "varchar(255)",
+                                            "Null": "NO",
+                                            "Key": "",
+                                            "Default": null,
+                                            "Extra": "",
+                                            "explications": ""
+                                        },
+                                        {
+                                            "Field": "telephone",
+                                            "Type": "varchar(255)",
+                                            "Null": "NO",
+                                            "Key": "",
+                                            "Default": null,
+                                            "Extra": "",
+                                            "explications": ""
+                                        },
+                                        {
+                                            "Field": "created_at",
+                                            "Type": "timestamp",
+                                            "Null": "YES",
+                                            "Key": "",
+                                            "Default": null,
+                                            "Extra": "",
+                                            "explications": ""
+                                        },
+                                        {
+                                            "Field": "updated_at",
+                                            "Type": "timestamp",
+                                            "Null": "YES",
+                                            "Key": "",
+                                            "Default": null,
+                                            "Extra": "",
+                                            "explications": ""
+                                        }
+                                    ]
+                                }
+                            }
+                        ]
+                    },
+                    "les_types": [
+                        "add",
+                        "edit",
+                        "list",
+                        "details"
+                    ]
+                },
+                {
+                    "table": "users",
+                    "description": [
+                        "id",
+                        "prenom",
+                        "nom",
+                        "adresse",
+                        "telephone",
+                        "email",
+                        "password"
+                    ],
+                    "table_descriptions": {
+                        "table_name": "users",
+                        "cle_primaire": {
+                            "Field": "id",
+                            "Type": "bigint(20) unsigned",
+                            "Null": "NO",
+                            "Key": "PRI",
+                            "Default": null,
+                            "Extra": "auto_increment",
+                            "explications": ""
+                        },
+                        "les_based_table_name": [
+                            "users"
+                        ],
+                        "les_referenced_table": [],
+                        "les_colonnes": [
+                            {
+                                "Field": "id",
+                                "Type": "bigint(20) unsigned",
+                                "Null": "NO",
+                                "Key": "PRI",
+                                "Default": null,
+                                "Extra": "auto_increment",
+                                "explications": ""
+                            },
+                            {
+                                "Field": "prenom",
+                                "Type": "varchar(255)",
+                                "Null": "NO",
+                                "Key": "",
+                                "Default": null,
+                                "Extra": "",
+                                "explications": ""
+                            },
+                            {
+                                "Field": "nom",
+                                "Type": "varchar(255)",
+                                "Null": "NO",
+                                "Key": "",
+                                "Default": null,
+                                "Extra": "",
+                                "explications": ""
+                            },
+                            {
+                                "Field": "adresse",
+                                "Type": "varchar(255)",
+                                "Null": "NO",
+                                "Key": "",
+                                "Default": null,
+                                "Extra": "",
+                                "explications": ""
+                            },
+                            {
+                                "Field": "telephone",
+                                "Type": "varchar(255)",
+                                "Null": "NO",
+                                "Key": "",
+                                "Default": null,
+                                "Extra": "",
+                                "explications": ""
+                            },
+                            {
+                                "Field": "email",
+                                "Type": "varchar(255)",
+                                "Null": "NO",
+                                "Key": "",
+                                "Default": null,
+                                "Extra": "",
+                                "explications": ""
+                            },
+                            {
+                                "Field": "password",
+                                "Type": "varchar(255)",
+                                "Null": "NO",
+                                "Key": "",
+                                "Default": null,
+                                "Extra": "",
+                                "explications": ""
+                            }
+                        ]
+                    },
+                    "les_types": [
+                        "add",
+                        "edit",
+                        "list",
+                        "details"
+                    ]
+                }
+            ]
+        },
+        {
+            "module": "public",
+            "les_tables": [
+                {
+                    "table": "login",
+                    "description": [
+                        "login",
+                        "mot_de_passe"
+                    ],
+                    "les_types": [
+                        "login"
+                    ]
+                }
+            ]
+        }
+    ]
+}

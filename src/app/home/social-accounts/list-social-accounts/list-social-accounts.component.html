@@ -1,0 +1,179 @@
+<div
+  class="d-flex align-items-center justify-content-between  bg-white shadow-sm p-4 rounded rounded-2 mb-4 border border-1">
+  <div class="d-flex  align-items-center">
+    <i class="bi bi-arrow-left text-secondary fs-3 me-2" (click)="api.retour()"></i>
+    <div class="fs-5">SocialAccounts  - {{social_accounts.length}}</div>
+    <div class="d-flex gap-1 justify-content-end ms-3">
+    <ng-select [multiple]="true" [closeOnSelect]="false" placeholder="Rechercher ici ..." notFoundText="Aucun résultat"
+      class="no-limit" [(ngModel)]="filter.text" (search)="filter_change($event)" (change)="filter_change()"
+      style="min-width: 300px;">
+    </ng-select>
+  </div>
+  </div>
+  <div class="d-flex">
+    <button class="btn btn-primary" (click)="openModal_add_social_accounts()"><i class="bi bi-plus-square-dotted"></i>
+      SocialAccounts</button>
+  </div>
+</div>
+<!-- Liste des éléments -->
+
+<!-- Loading state -->
+@if (loading_get_social_accounts()) {
+  <ng-container >
+  <div class="text-center py-5">
+  <div class="spinner-border text-primary" role="status">
+  <span class="visually-hidden">Chargement en cours...</span>
+  </div>
+  <p class="mt-2 text-muted fs-5">Chargement en cours...</p>
+  </div>
+  </ng-container>
+}
+
+@if (!loading_get_social_accounts() && social_accounts.length > 0) {
+  <div class="row g-3">
+    @for (account of social_accounts; track account.id) {
+      <div class="col-12 col-sm-6 col-xl-4">
+        <div
+          class="social-card"
+          [class.is-connected]="account.social_accounts?.length > 0 && !isExpired(account) && !isExpiringSoon(account)"
+          [class.is-expiring]="account.social_accounts?.length > 0 && isExpiringSoon(account)"
+          [class.is-expired]="account.social_accounts?.length > 0 && isExpired(account)"
+          [class.is-disconnected]="!account.social_accounts?.length"
+        >
+          <!-- Menu actions -->
+          <div class="card-menu" *ngIf="account.social_accounts?.length > 0">
+            <div class="dropdown">
+              <button class="btn-icon" data-bs-toggle="dropdown" aria-expanded="false">
+                <i class="bi bi-three-dots-vertical"></i>
+              </button>
+              <ul class="dropdown-menu dropdown-menu-end shadow-sm">
+                <li>
+                  <button class="dropdown-item" type="button" (click)="refreshToken(account)">
+                    <i class="bi bi-arrow-repeat me-2 text-primary"></i> Rafraîchir le token
+                  </button>
+                </li>
+                <li>
+                  <button class="dropdown-item" type="button" (click)="openModal_edit_social_accounts(account)">
+                    <i class="bi bi-pencil me-2 text-primary"></i> Modifier
+                  </button>
+                </li>
+                <li>
+                  <button class="dropdown-item" type="button" (click)="viewDetails(account)">
+                    <i class="bi bi-eye me-2 text-primary"></i> Détails
+                  </button>
+                </li>
+                <li><hr class="dropdown-divider"></li>
+                <li>
+                  <button class="dropdown-item text-danger" type="button" (click)="disconnect(account)">
+                    <i class="bi bi-x-circle me-2"></i> Déconnecter
+                  </button>
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- En-tête : logo + nom + badge statut -->
+          <div class="card-header-row">
+            <div class="network-identity">
+              <div class="network-logo">
+                <img
+                  [src]="account.logo"
+                  [alt]="account.libelle"
+                  onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'"
+                />
+                <span class="logo-fallback" style="display:none">
+                  {{ account.libelle?.charAt(0) }}
+                </span>
+              </div>
+              <div>
+                <p class="network-name">{{ account.libelle }}</p>
+                <p class="network-handle" *ngIf="account.social_accounts?.[0]?.account_name">
+                  {{ account.social_accounts[0].account_name }}
+                </p>
+                <p class="network-handle text-muted" *ngIf="!account.social_accounts?.length">
+                  Non connecté
+                </p>
+              </div>
+            </div>
+
+            <!-- Badge statut -->
+            <span class="status-badge" [ngClass]="getStatusClass(account)">
+              <span class="status-dot"></span>
+              {{ getStatusLabel(account) }}
+            </span>
+          </div>
+
+          <!-- Infos token (si connecté) -->
+          <ng-container *ngIf="account.social_accounts?.length > 0">
+            <div class="token-info">
+              <div class="token-row">
+                <span class="token-key">Compte</span>
+                <span class="token-val">{{ account.social_accounts[0].account_name || account.social_accounts[0].account_id }}</span>
+              </div>
+              <div class="token-row" [class.text-danger]="isExpired(account)" [class.text-warning]="isExpiringSoon(account)">
+                <span class="token-key">Expire le</span>
+                <span class="token-val fw-medium">
+                  <i class="bi bi-exclamation-triangle-fill me-1" *ngIf="isExpired(account) || isExpiringSoon(account)"></i>
+                  {{ account.social_accounts[0].expires_at | date:'dd MMM yyyy' }}
+                </span>
+              </div>
+              <div class="token-row">
+                <span class="token-key">Validité</span>
+                <span class="token-val">{{ getTokenPercent(account) }}%</span>
+              </div>
+            </div>
+
+            <!-- Barre de progression du token -->
+            <div class="token-bar-wrap">
+              <div
+                class="token-bar"
+                [style.width.%]="getTokenPercent(account)"
+                [class.bar-high]="getTokenPercent(account) > 50"
+                [class.bar-mid]="getTokenPercent(account) > 20 && getTokenPercent(account) <= 50"
+                [class.bar-low]="getTokenPercent(account) <= 20"
+              ></div>
+            </div>
+
+            <!-- Actions selon l'état -->
+            <!-- <div class="card-actions">
+              @if (isExpired(account) || isExpiringSoon(account)) {
+                <button class="btn btn-warning btn-sm w-100" (click)="reconnect(account)">
+                  <i class="bi bi-arrow-repeat me-1"></i> Renouveler maintenant
+                </button>
+              } @else {
+                <button class="btn btn-outline-primary btn-sm" (click)="refreshToken(account)">
+                  <i class="bi bi-arrow-repeat me-1"></i> Rafraîchir
+                </button>
+                <button class="btn btn-outline-danger btn-sm" (click)="disconnect(account)">
+                  Déconnecter
+                </button>
+              }
+            </div> -->
+          </ng-container>
+
+          <!-- CTA si non connecté -->
+          <ng-container *ngIf="!account.social_accounts?.length">
+            <p class="connect-hint">
+              Connectez votre compte {{ account.libelle }} pour publier du contenu directement depuis SocialSync.
+            </p>
+            <button class="btn btn-primary btn-sm w-100" (click)="connectAccount(account)">
+              <i class="bi bi-plus-lg me-1"></i> Connecter {{ account.libelle }}
+            </button>
+          </ng-container>
+        </div>
+      </div>
+    }
+  </div>
+}
+<!-- Empty state -->
+@if (!loading_get_social_accounts() && social_accounts.length === 0) {
+<div class="text-center py-5">
+  <svg xmlns="http://www.w3.org/2000/svg" width="80" height="80" fill="#6c757d" class="bi bi-info-circle mb-3"
+    viewBox="0 0 16 16">
+    <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16" />
+    <path
+      d="m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0" />
+  </svg>
+  <p class="fs-5 text-muted">Pas de données</p>
+</div>
+}
