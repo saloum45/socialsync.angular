@@ -156,7 +156,7 @@
             <p class="connect-hint">
               Connectez votre compte {{ account.libelle }} pour publier du contenu directement depuis SocialSync.
             </p>
-            <button class="btn btn-primary btn-sm w-100" (click)="connectAccount(account)">
+            <button class="btn btn-primary btn-sm w-100" (click)="get_social_account_sign_up(account.libelle)">
               <i class="bi bi-plus-lg me-1"></i> Connecter {{ account.libelle }}
             </button>
           </ng-container>
